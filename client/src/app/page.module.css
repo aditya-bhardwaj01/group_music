@@ -1,0 +1,105 @@
+.Home {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    min-height: 100vh;
+    color: white;
+    background-image: url('../assets/background-image-desktop2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+
+    @media (max-width: 730px) {
+        background-position: 70% center;
+    }
+}
+
+
+.mainHome {
+    /* border: solid blue; */
+    padding: 1em 0;
+    flex: 1;
+}
+
+.homeLeft{
+    /* border: solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.welcomeMsg{
+    text-align: center;
+    font-size: 60px;
+    font-weight: bold;
+}
+.welcomeMsg span{
+    color: burlywood;
+}
+.homeLeft input{
+    background-color: transparent;
+    border: none;
+    border: 1px solid gray;
+    height: 40px;
+    width: 80%;
+    margin: 10px;
+    color: gray;
+    padding: 9px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.joinBtn{
+    margin: 10px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFE54A;
+    color: black;
+    border-radius: 10px; 
+    height: 35px;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 600;
+    padding: 9px 15px;
+}
+
+.homeRight{
+    /* border: solid green; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.homeRight img{
+    height: 200px;
+    width: 350px;
+}
+
+@media only screen and (width<730px) {
+    .Home{
+        display: block;
+    }
+    .mainHome{
+        min-height: 100vh;
+    }
+    .homeLeft{
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .welcomeMsg{
+        font-size: 40px;
+        font-weight: bold;
+    }
+    .homeRight img{
+        height: 100px;
+        width: 250px;
+    }
+
+    .homeLeft input{
+        font-size: 16px;
+    }
+}

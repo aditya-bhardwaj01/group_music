@@ -1,0 +1,53 @@
+@keyframes slideFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.SecondForm {
+    animation: slideFromRight 0.7s ease-out forwards;
+}
+
+.SecondForm div {
+    color: gray;
+    font-size: 14px;
+    margin: 15px 0;
+}
+
+.SecondForm input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 90%;
+    color: white;
+}
+
+.SecondForm input:focus {
+    outline: none;
+}
+
+.otpFormBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.goBackBtn{
+    min-width: 80px;
+}
+
+.verifyOtpBtn{
+    min-width: 80px;
+}
+
+@media only screen and (width<580px) {
+    .SecondForm input{
+        width: 100%;
+    }
+}

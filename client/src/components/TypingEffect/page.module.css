@@ -1,0 +1,9 @@
+.TypeAnimation{
+    text-align: center;
+}
+
+.TypeAnimation span{
+    color: burlywood;
+    font-weight: bold;
+    font-size: 20px;
+}

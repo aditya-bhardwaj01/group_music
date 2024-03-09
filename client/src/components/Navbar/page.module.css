@@ -1,0 +1,42 @@
+.mainNav{
+    padding: 3px;
+    display: flex;
+    flex-direction: row;
+    /* border: solid white; */
+}
+
+.logoSection{
+    flex: 1;
+    /* border: solid green; */
+}
+.navbarLogo{
+    height: 55px;
+    width: 120px;
+}
+
+.menuSectionDesktop{
+    flex: 7;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    /* border: solid blue; */
+}
+
+.toggleMenu{
+    flex: 7;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.phoneMenu{
+    background-color: transparent;
+}
+
+@media only screen and (width<730px) {
+    .navbarLogo{
+        height: 45px;
+        width: 95px;
+    }
+}

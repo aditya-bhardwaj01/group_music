@@ -1,0 +1,20 @@
+.Carousel {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    text-align: center;
+}
+
+.carouselSingle {
+    margin: 0 1px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+.activeCarousel{
+    background-color: white;
+}

@@ -1,0 +1,29 @@
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const morgan = require('morgan');
+
+app.use(express.json());
+app.use(cors());
+app.use(morgan('dev'));
+
+// Routers
+const verifyEmail = require('./routes/Users/VerifyEmail')
+app.use('/users/verifyEmail', verifyEmail);
+
+const otpVerification = require('./routes/Users/SendOtp')
+app.use('/users/verifyOtp', otpVerification);
+
+const SignUp = require("./routes/Users/SignUp");
+app.use("/users/signup", SignUp);
+
+const login = require("./routes/Users/Login");
+app.use("/users/login", login);
+
+const resetPassword = require("./routes/Users/ResetPassword");
+app.use("/users/resetPassword", resetPassword);
+
+app.listen(3001, ()=>{
+    console.log("Server listening on port 3001");
+})
+

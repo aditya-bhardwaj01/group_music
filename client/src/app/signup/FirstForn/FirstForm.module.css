@@ -1,0 +1,59 @@
+.signUpForm div {
+    color: gray;
+    font-size: 14px;
+    margin: 15px 0;
+}
+
+.signUpForm input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 90%;
+    color: white;
+}
+
+.signUpForm input:focus {
+    outline: none;
+}
+
+.signUpDecl {
+    display: flex;
+    align-items: center;
+}
+
+.signUpDecl input {
+    width: auto;
+    margin-right: 10px;
+}
+
+.signUpOtp {
+    text-decoration: none;
+    margin: 0 15px 0 0;
+    background-color: maroon;
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    padding: 5px;
+}
+
+.btnDisabled{
+    background-color: gray;
+    color: black;
+}
+
+.signUpToLogin {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.signUpToLogin:hover {
+    color: white;
+}
+
+@media only screen and (width<580px) {
+    .signUpForm input{
+        width: 100%;
+    }
+}

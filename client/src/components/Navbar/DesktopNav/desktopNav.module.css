@@ -1,0 +1,26 @@
+.desktopNav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    /* border: solid red; */
+}
+
+.desktopNavRight{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid gray;
+
+    /* border: solid green; */
+}
+
+.desktopNavLeft{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* border: solid blue; */
+}

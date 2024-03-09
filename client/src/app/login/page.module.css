@@ -1,0 +1,67 @@
+.login {
+    position: relative;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+.loginPage {
+    color: white;
+    width: 100%;
+    height: 100vh;
+}
+
+.loginPage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('../../assets/images/form-background-2.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(70%);
+    z-index: -1;
+}
+.desktopLeft{
+    display: block;
+    height: 100vh;
+}
+
+.desktopRight{
+    padding: 30px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.phoneGoBack{
+    display: none;
+}
+
+.desktopRight p{
+    font-size: 35px;
+    font-weight: lighter;
+}
+
+.loginContent {
+    position: relative;
+    z-index: 1;
+}
+
+@media only screen and (width<580px) {
+    .desktopLeft{
+        display: none;
+    }
+    .phoneGoBack{
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 16px;
+        right: 35px;
+        font-size: 25px;
+    }
+}

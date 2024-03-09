@@ -1,0 +1,73 @@
+.PhoneMenu {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(197,170,106, 0.5);
+}
+
+.joinGroupPhone {
+    padding: 10px 0 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.joinGroupPhoneBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    width: 135px;
+    height: 30px;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 600;
+    padding: 9px 15px;
+}
+
+.loginPhone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0 10px 10px;
+}
+
+.loginPhoneBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #7F4508;
+    color: #FCC300;
+    border: 1px solid #FCC300;
+    border-radius: 5px;
+    width: 135px;
+    height: 30px;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 600;
+    padding: 9px 15px;
+}
+
+.signupPhone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0 10px 10px;
+}
+
+.signupPhoneBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5A52FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 135px;
+    height: 30px;
+    font-size: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 600;
+    padding: 9px 15px;
+}
