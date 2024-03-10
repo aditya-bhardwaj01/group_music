@@ -1,15 +1,26 @@
+"use client"
 import { Navbar } from "@/components/Navbar/page";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import styles from "./page.module.css";
 import Image from "next/image";
 import ThemeImage from '../assets/themePhoto.png'
 import TypingEffect from "@/components/TypingEffect/page";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Home() {
+  const router = useRouter();
   const phrases = ['Crafting melodies together, echoing harmony',
     'Harmonize your playlist, synchronize your beats',
     'Amplifying togetherness, one song at a time',
     'Harmonizing souls through shared playlists']
+
+  useEffect(() => {
+    const accessToken = Cookies.get("accessToken");
+    if(accessToken) router.push('/profilePage');
+  }, [])
+
   return (
     <div className={styles.Home}>
       <Navbar />
@@ -24,7 +35,7 @@ export default function Home() {
           <input type="text" placeholder="Enter the group code" />
           <input type="text" placeholder="Enter your display name" />
           {/* <button>JOIN THE GROUP</button> */}
-            <Link href="/groupMusic" className={styles.joinBtn}>
+            <Link href="/profilePage" className={styles.joinBtn}>
               JOIN THE GROUP
             </Link>
         </div>

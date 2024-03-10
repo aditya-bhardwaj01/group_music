@@ -1,6 +1,8 @@
+"use client"
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
 import ShowPassword from '../../../assets/showPassword.png';
 import HidePassword from '../../../assets/hidePassword.png';
@@ -41,12 +43,13 @@ export const LoginForm: React.FC<LoginForProps> = ({ setLoginAction }) => {
         })
             .then((response) => {
                 setSending(false);
-                sessionStorage.setItem("accessToken", response.data.accessToken);
-                router.push('/profilePage')
+                const oneMonthInMilliseconds = 30 * 24 * 60 * 60 * 1000; 
+                const expiresInOneMonth = new Date(Date.now() + oneMonthInMilliseconds);
+                Cookies.set('accessToken', response.data.accessToken, { expires: expiresInOneMonth });
+                router.push('/profilePage');
 
             })
             .catch((error) => {
-                console.log(error);
                 setSending(false);
                 if (error.response) {
                     if (error.response.status === 400) {

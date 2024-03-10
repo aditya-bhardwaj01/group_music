@@ -1,7 +1,8 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
 import styles from './page.module.css'
 import { FormLeft } from '@/components/FormLeft/page'
 import { LoginForm } from './LoginForm/LoginForm'
@@ -22,6 +23,14 @@ const SignUp = () => {
   const totalSection = 3;
   const [email, setEmail] = useState('');
   const [activeSection, setActiveSection] = useState(0);
+
+  useEffect(() => {
+    const accessToken = Cookies.get("accessToken");
+    if(accessToken){
+      Swal.fire("Logout to create another account!");
+      router.push('/profilePage');
+    }
+  }, [])
 
   if(passwordReset){
     Swal.fire("You password has been updated successfully!");
