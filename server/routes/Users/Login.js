@@ -12,7 +12,7 @@ const verifyPassword = (result, password, response) => {
     bcrypt.compare(password, correctPassword).then(async (match) => {
       if (!match) response.status(400).json({ error: "Incorrect Password!" })
       else {
-        const accessToken = sign({ username: correctEmail, id: result[0].id }, "authentication_success_succ")
+        const accessToken = sign({ username: correctEmail, id: result[0].id }, process.env.ACCESSTOKEN)
         response.status(200).json({
           accessToken: accessToken
         });

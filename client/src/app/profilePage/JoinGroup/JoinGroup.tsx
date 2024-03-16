@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 
 import styles from './JoinGroup.module.css'
-import { JoinForm } from '../JoinModal/JoinForm';
+import { JoinForm } from '../JoinForm/JoinForm';
 
 const JoinGroup = () => {
   const [show, setShow] = useState(false);
@@ -16,7 +16,7 @@ const JoinGroup = () => {
 
       <Modal show={show} onHide={handleClose} aria-labelled-by="contained-modal-title-vcenter" data-bs-theme="dark" size='sm' centered style={{ color: 'white' }}>
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: 20 }}>
+          <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: 18 }}>
             Join Group!
           </Modal.Title>
         </Modal.Header>

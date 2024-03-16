@@ -2,12 +2,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
+require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
 
-// Routers
+// Users Routers
 const verifyEmail = require('./routes/Users/VerifyEmail')
 app.use('/users/verifyEmail', verifyEmail);
 
@@ -22,6 +23,10 @@ app.use("/users/login", login);
 
 const resetPassword = require("./routes/Users/ResetPassword");
 app.use("/users/resetPassword", resetPassword);
+
+// GroupManagementRouter
+const createGroup = require('./routes/GroupManagement/CreateGroup');
+app.use('/groupManagement/create', createGroup);
 
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");

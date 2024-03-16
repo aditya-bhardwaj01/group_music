@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const otpGen = require("otp-generator");
 const nodemailer = require('nodemailer');
-const { EMAIL, PASSWORD } = require("./env");
+const EMAIL = process.env.EMAIL;
+const PASSWORD = process.env.PASSWORD
 
 // Store OTPs associated with user email addresses
 const otpMap = {};
