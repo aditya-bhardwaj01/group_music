@@ -1,0 +1,64 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.ProfilePage {
+  color: white;
+  min-height: 100vh;
+  background-image: url('../../assets/profilePageBackground.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+.mainSection {
+  /* border: 2px solid red; */
+  position: relative;
+  padding-top: 50px;
+  text-align: center;
+  height: 100vh;
+}
+
+.menuItemSection {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.navIcon img {
+  height: 80px;
+  width: 160px;
+}
+
+.horizontalLine {
+  width: 60%;
+  margin: 0 auto;
+  border: 0;
+  border: 1.5px solid;
+}
+
+.contentSection {
+  position: relative;
+}
+
+.slogan {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+@media (max-height: 562px) {
+  .mainSection {
+    padding-top: 10px;
+  }
+}

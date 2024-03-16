@@ -1,10 +1,10 @@
 "use client";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./slices/counterSlice";
+import applicationStateReducer from "./slices/applicationState";
 
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
+  applicationState: applicationStateReducer,
 },);
 
 export const store = configureStore({

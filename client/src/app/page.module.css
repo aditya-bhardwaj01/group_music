@@ -10,8 +10,21 @@
     background-attachment: fixed;
     position: relative;
 
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+
     @media (max-width: 730px) {
         background-position: 70% center;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
 
@@ -22,22 +35,25 @@
     flex: 1;
 }
 
-.homeLeft{
+.homeLeft {
     /* border: solid red; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.welcomeMsg{
+
+.welcomeMsg {
     text-align: center;
     font-size: 60px;
     font-weight: bold;
 }
-.welcomeMsg span{
+
+.welcomeMsg span {
     color: burlywood;
 }
-.homeLeft input{
+
+.homeLeft input {
     background-color: transparent;
     border: none;
     border: 1px solid gray;
@@ -45,13 +61,13 @@
     width: 80%;
     margin: 10px;
     color: gray;
-    padding: 9px;
+    padding: 9px 9px 9px 14px;
     border-radius: 25px;
     font-weight: 600;
     font-size: 20px;
 }
 
-.joinBtn{
+.joinBtn {
     margin: 10px;
     border: none;
     display: flex;
@@ -59,7 +75,7 @@
     align-items: center;
     background-color: #FFE54A;
     color: black;
-    border-radius: 10px; 
+    border-radius: 10px;
     height: 35px;
     font-size: 16px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -67,39 +83,44 @@
     padding: 9px 15px;
 }
 
-.homeRight{
+.homeRight {
     /* border: solid green; */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.homeRight img{
+
+.homeRight img {
     height: 200px;
     width: 350px;
 }
 
 @media only screen and (width<730px) {
-    .Home{
+    .Home {
         display: block;
     }
-    .mainHome{
+
+    .mainHome {
         min-height: 100vh;
     }
-    .homeLeft{
+
+    .homeLeft {
         align-items: center;
         justify-content: flex-start;
     }
-    .welcomeMsg{
+
+    .welcomeMsg {
         font-size: 40px;
         font-weight: bold;
     }
-    .homeRight img{
+
+    .homeRight img {
         height: 100px;
         width: 250px;
     }
 
-    .homeLeft input{
+    .homeLeft input {
         font-size: 16px;
     }
 }

@@ -1,0 +1,22 @@
+@keyframes slideDown {
+    0% {
+        top: -100px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+.MemberGroup {
+    /* border: solid red; */
+    padding: 40px;
+    width: 100%;
+    position: absolute;
+    top: -100px;
+    animation: slideDown 1s forwards;
+}
+
+.mainContent {
+    /* border: solid green; */
+}

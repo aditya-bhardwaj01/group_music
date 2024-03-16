@@ -27,7 +27,7 @@ const SignUp = () => {
   useEffect(() => {
     const accessToken = Cookies.get("accessToken");
     if(accessToken){
-      Swal.fire("Logout to create another account!");
+      Swal.fire("Logout to sign-in to another account!");
       router.push('/profilePage');
     }
   }, [])

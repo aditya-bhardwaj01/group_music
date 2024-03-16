@@ -1,0 +1,44 @@
+.btn {
+    width: 200px;
+    padding: 5px 20px;
+}
+
+.btn {
+    border-radius: 30px;
+    background-color: #1FDF64;
+    border: none;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    padding: 7px 0;
+    width: 150px;
+    height: 40px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.btn {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.btn:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 7px;
+    right: -20px;
+    transition: 0.1s;
+}
+
+.btn:hover {
+    padding-right: 20px;
+    width: 170px;
+}
+
+.btn:hover:after {
+    opacity: 1;
+    right: 20px;
+}

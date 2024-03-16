@@ -1,0 +1,30 @@
+.transitionClass{
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.menuSingle{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    cursor: pointer;
+    border-radius: 0 15px 15px 0;
+    background-color: #C2C0BE;
+    width: 35px;
+    height: 40px;
+    margin: 4px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 3px;
+}
+
+.menuSingle:hover{
+    background-color: #cab287;
+}
+
+.activeTab{
+    background-color: #1FDF64;
+}
+
+.logoImg{
+    height: 25px;
+    width: 25px;
+}

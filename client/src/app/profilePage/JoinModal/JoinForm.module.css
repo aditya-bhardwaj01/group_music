@@ -1,0 +1,37 @@
+.JoinForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.JoinForm input{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: none;
+    border: none;
+    font-size: 16px;
+    background: black;
+    padding: 5px 12px;
+    border-radius: 6px;
+}
+
+.JoinForm input:focus{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #1FDF64;
+}
+
+.btnEnabled{
+    font-weight: bold;
+    border: none;
+    background-color: #1FDF64;
+    height: 30px;
+    border-radius: 4px;
+}
+
+.btnDisabled{
+    font-weight: bold;
+    border: none;
+    background-color: gray;
+    height: 30px;
+    border-radius: 4px;
+}
