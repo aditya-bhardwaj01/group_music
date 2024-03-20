@@ -28,6 +28,9 @@ app.use("/users/resetPassword", resetPassword);
 const createGroup = require('./routes/GroupManagement/CreateGroup');
 app.use('/groupManagement/create', createGroup);
 
+const joinGroup = require('./routes/GroupManagement/JoinGroup');
+app.use('/groupManagement/join', joinGroup);
+
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");
 })
