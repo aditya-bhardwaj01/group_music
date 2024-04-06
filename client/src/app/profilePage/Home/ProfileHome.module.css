@@ -14,6 +14,10 @@
     animation: slideDown 1s forwards;
 }
 
+.mainContent{
+    text-align: center;
+}
+
 .message{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

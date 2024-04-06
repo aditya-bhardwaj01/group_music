@@ -55,6 +55,10 @@ router.post("/", async (request, response) => {
     const secretCode = request.body.secretCode;
     const displayName = request.body.displayName;
     const accessToken = request.body.accessToken;
+    if(!accessToken){
+        response.status(404).json("You have been logged out.");
+        return;
+    }
 
     const validToken = verify(accessToken, ACCESSTOKEN);
     const userId = validToken.id;

@@ -4,8 +4,6 @@ const bcrypt = require("bcrypt");
 const { sign } = require('jsonwebtoken');
 const db = require('../../database/Connection')
 
-const query = "";
-
 const verifyPassword = (result, password, response) => {
     const correctPassword = result[0].password;
     const correctEmail = result[0].emailId;

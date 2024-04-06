@@ -9,11 +9,72 @@
 }
 
 .OwnerGroup {
-    border: solid red;
+    /* border: solid red; */
+    padding: 10px 40px;
     width: 100%;
     animation: slideDown 1s forwards;
 }
 
 .mainContent {
-    /* border: solid green; */
+    overflow-y: auto;
+    max-height: 75vh;
+    padding: 0 5px;
+}
+
+.searchBox{
+    margin-bottom: 10px;
+    height: 25px;
+}
+
+.searchBox span{
+    display: inline-block;
+    height: 100%;
+    width: 2%;
+    border-bottom: 1px solid gray;
+    cursor: pointer;
+}
+
+.searchBox input{
+    width: 160px;
+    color: white;
+    height: 25px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid gray;
+}
+
+.searchBox input:focus {
+    outline: none;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+    gap: 20px;
+}
+
+@media (max-height: 448px) {
+    .mainContent {
+        max-height: 70vh;
+    }
+}
+
+@media (max-width: 1330px) {
+    .searchBox input{
+        padding-left: 10px;
+    }
+}
+
+@media (max-width: 590px) {
+    .searchBox input{
+        padding-left: 15px;
+    }
+
+    .searchBox span{
+        width: 2%;
+    }
+
+    .searchBox input{
+        width: 98%;
+    }
 }

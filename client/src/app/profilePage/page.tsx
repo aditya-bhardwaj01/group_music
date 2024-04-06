@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { RootState } from '@/store/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import styles from './page.module.css';
 
@@ -18,7 +18,6 @@ const ProfilePage = () => {
   const activeSection = useSelector((state: RootState) => state.applicationState.profilePageActive);
   const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
   const router = useRouter();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const retrievedAccessToken = Cookies.get('accessToken');

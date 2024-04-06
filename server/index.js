@@ -24,12 +24,19 @@ app.use("/users/login", login);
 const resetPassword = require("./routes/Users/ResetPassword");
 app.use("/users/resetPassword", resetPassword);
 
-// GroupManagementRouter
+// GroupManagement Routers
 const createGroup = require('./routes/GroupManagement/CreateGroup');
 app.use('/groupManagement/create', createGroup);
 
 const joinGroup = require('./routes/GroupManagement/JoinGroup');
 app.use('/groupManagement/join', joinGroup);
+
+// ListGroups Router
+const ownerGroups = require('./routes/ListGroups/OwnerGroup');
+app.use('/listGroups/owner', ownerGroups);
+
+const singleGroupData = require('./routes/ListGroups/SingleGroup');
+app.use('/listGroups/singleGroup', singleGroupData);
 
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");

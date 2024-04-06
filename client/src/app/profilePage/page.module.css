@@ -21,10 +21,8 @@
 }
 
 .mainSection {
-  /* border: 2px solid red; */
   position: relative;
   padding-top: 50px;
-  text-align: center;
   height: 100vh;
 }
 
@@ -33,6 +31,10 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.navIcon{
+  text-align: center;
 }
 
 .navIcon img {

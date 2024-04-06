@@ -65,6 +65,10 @@ router.post("/", async (request, response) => {
     const displayName = request.body.displayName;
     const accessToken = request.body.accessToken;
 
+    if (!accessToken) {
+        response.status(404).json("You have been logged out.");
+        return;
+    }
     const validToken = verify(accessToken, ACCESSTOKEN);
     const userId = validToken.id;
 
@@ -80,10 +84,10 @@ router.post("/", async (request, response) => {
         const code = secretCodes[index].groupSecretCode;
         secretCodeSet.add(code);
     }
-    
+
     const generatedCode = await generateUniqueGroupCode(secretCodeSet);
-    
-    try{
+
+    try {
         await insertGroup(groupName, generatedCode, userId, displayName);
         response.status(200).json({ secretCode: generatedCode });
     } catch {
