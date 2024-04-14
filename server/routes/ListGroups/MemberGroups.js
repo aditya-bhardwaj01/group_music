@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { verify } = require('jsonwebtoken');
-const ACCESSTOKEN = process.env.ACCESSTOKEN
+const { verify } = require("jsonwebtoken");
 const db = require('../../database/Connection')
+const ACCESSTOKEN = process.env.ACCESSTOKEN
 
-const getAllMembers = (groupId) => {
-    const query = "select displayName, status from members where groupId=?";
-    const values = [groupId];
-
+const fetchGroupData = (userId) => {
+    const query = "select a.* from groupsData a inner join members b where a.id = b.groupId and b.userId=?";
+    const values = [userId];
     return new Promise((resolve, reject) => {
         db.query(query, values,
             (error, result) => {
@@ -18,21 +17,22 @@ const getAllMembers = (groupId) => {
                     resolve(result);
                 }
             })
-    });
+    })
 }
 
 router.post("/", async (request, response) => {
-    const groupId = request.body.groupId;
     const accessToken = request.body.accessToken;
     if (!accessToken) {
         response.status(404).json("You have been logged out.");
         return;
     }
+    const validToken = verify(accessToken, ACCESSTOKEN);
+    const userId = validToken.id;
 
     try {
-        members = await getAllMembers(groupId);
-        console.log(members)
-        response.status(200).json(members);
+        const groupData = await fetchGroupData(userId);
+        console.log(groupData)
+        response.status(200).json(groupData);
     } catch {
         response.status(500).json({ error: "Server Error" })
     }

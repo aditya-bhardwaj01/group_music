@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
+import PlayMusic from '../../../assets/playMusic.png';
 import { useRouter } from "next/navigation";
 
 import styles from './CardFront.module.css'
@@ -53,7 +54,11 @@ const CardFront: React.FC<CardFrontProps> = ({ groupData, setShowFront }) => {
 
             <div className={`${styles.imageText} ${!isDesktop && styles.imageTextPhone}`}>
                 <h5>{groupData.groupName}</h5>
-                <p><b>Last Song:</b> <i>{groupData.songName}</i></p>
+                <p>
+                    {groupData.songName !== "Play you first song" && 
+                    <Image src={PlayMusic} height={20} width={20} alt='Play Music' style={{borderRadius: 0}} />} &nbsp;
+                    <i>{groupData.songName}</i>
+                </p>
             </div>
 
             {

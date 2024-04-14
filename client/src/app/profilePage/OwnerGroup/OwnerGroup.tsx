@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import SearchIcon from '../../../assets/search.png'
+import DefaultImage from '../../../assets/DefaultCardImg.jpg';
 import Image from 'next/image';
 import Card from '../Card/Card';
 import { FormError } from '@/components/FormError/page';
@@ -33,8 +34,13 @@ const OwnerGroup = () => {
       accessToken: Cookies.get('accessToken')
     })
       .then((response) => {
-        setGroups(response.data);
-        setOriginalGroupData(response.data);
+        const updatedGroups = response.data.map((group: GroupSingle) => ({
+          ...group,
+          songImage: group.songImage || DefaultImage,
+          songName: group.songName || 'Play you first song'
+        }));
+        setGroups(updatedGroups);
+        setOriginalGroupData(updatedGroups);
         setLoading(false);
         setErrorMsg("");
       })
@@ -57,6 +63,7 @@ const OwnerGroup = () => {
 
   const searchGroup = (event: ChangeEvent<HTMLInputElement>) => {
     const currText = event.target.value.trim();
+    console.log(currText)
     setGroups(originalGroupData.filter(item => item.groupName.includes(currText)));
   }
 

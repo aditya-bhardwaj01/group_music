@@ -7,6 +7,8 @@ import Image from 'next/image';
 import playMusic from '../../../assets/playMusic.png';
 import moveToTop from '../../../assets/moveToTop.png';
 import moveToBottom from '../../../assets/moveToBottom.png';
+import CopyIcon from '../../../assets/copyIcon.png';
+import { useRouter } from 'next/navigation';
 
 import styles from './CardBack.module.css'
 
@@ -31,6 +33,8 @@ const CardBack: React.FC<CardBackProps> = ({ groupData, setShowFront }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [showDate, setShowDate] = useState(false);
   const [onTop, setOnTop] = useState(false);
+  const [members, setMembers] = useState([]);
+  const router = useRouter();
 
   const getFormattedDate = (inputDateString: string) => {
     const date = new Date(inputDateString);
@@ -47,15 +51,34 @@ const CardBack: React.FC<CardBackProps> = ({ groupData, setShowFront }) => {
 
   const scrollBottobSec = () => {
     const targetDiv = document.getElementById(`bottomContent${groupData.id}`) as HTMLElement | null;
-    console.log(targetDiv)
     if (targetDiv) {
-        if(onTop) targetDiv.style.height = '50px';
-        else targetDiv.style.height = '70px';
-        setOnTop(prev => !prev);
-        setShowDate(prev => !prev);
+      if (onTop) targetDiv.style.height = '50px';
+      else targetDiv.style.height = '70px';
+      setOnTop(prev => !prev);
+      setShowDate(prev => !prev);
     } else {
-        console.error("Element with class '.bottomContent' not found.");
+      console.error("Element with class '.bottomContent' not found.");
     }
+  }
+
+  const copyToClipboardLegacy = (text: string) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    textArea.style.top = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+  }
+
+  const copyToClipBoard = () => {
+    if (!navigator.clipboard) {
+      return copyToClipboardLegacy(groupData.groupSecretCode);
+    }
+
+    navigator.clipboard.writeText(groupData.groupSecretCode);
   }
 
   useEffect(() => {
@@ -65,7 +88,7 @@ const CardBack: React.FC<CardBackProps> = ({ groupData, setShowFront }) => {
       accessToken: Cookies.get('accessToken'),
     })
       .then((response) => {
-        console.log(response.data);
+        setMembers(response.data);
         setLoading(false);
         setErrorMsg("");
       })
@@ -98,19 +121,64 @@ const CardBack: React.FC<CardBackProps> = ({ groupData, setShowFront }) => {
           <Loading height={50} width={50} />
           :
           <div className={styles.mainContent}>
-            <button onClick={() => setShowFront(true)}>CardBack</button>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio laborum beatae in quod rerum ea, itaque libero a sequi reprehenderit,
-              pariatur blanditiis magni consequuntur, obcaecati nesciunt perferendis. Omnis, perspiciatis ea!
-            </p>
+            <div className={styles.topContent}>
+              <h4>{groupData.groupName}</h4>
+              <div className={styles.topMainContent}>
+                <div style={{ width: '220px', height: '180px' }}>
+                  <p>
+                    <div><b>Secret Code:</b></div>
+                    <div>
+                      {groupData.groupSecretCode}
+                      <span className={styles.CopyIcon} onClick={copyToClipBoard}>
+                        <Image src={CopyIcon} height={18} width={18} alt='Copy' />
+                      </span>
+                    </div>
+                  </p>
+
+                  <p>
+                    <div><b>Admin:</b></div>
+                    <div style={{ fontSize: '14px' }}>{groupData.displayName}</div>
+                  </p>
+                  <div className={styles.backCardBtn}>
+                    <button className={styles.backBtn} onClick={() => setShowFront(true)}>
+                      <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+                      <span>Back</span>
+                    </button>
+                    <button onClick={() => router.push('/groupMusic/' + groupData.groupName)} className={styles.joinBtn}>
+                      Join
+                      <div className={styles.arrowWrapper}>
+                        <div className={styles.arrow}></div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <div className={styles.members}>
+                    <b>Members:</b>
+                    {members.length === 0 && 
+                    <p style={{fontSize: '10px'}}>No one in this group!</p>}
+                    <div className={styles.membersList}>
+                      {members.map((item: any, index) => (
+                        <div key={index} className={styles.singleMember}>
+                          <span className={`${styles.circle} ${item.status ? styles.circle1 : styles.circle0}`}></span> 
+                          &nbsp; {item.displayName}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className={styles.bottomCotent} id={`bottomContent${groupData.id}`}>
               <Image src={groupData.songImage} height={40} width={40} alt="SongImage" />
               <div className={styles.groupNameDate}>
                 <div>{groupData.groupName}</div>
                 <div>
-                  <Image src={playMusic} height={12} width={12} alt='Song-played' />  
-                  <span style={{padding: '0 5px'}}>{groupData.songName}</span>
+                  {groupData.songName !== "Play you first song" &&
+                    <Image src={playMusic} height={16} width={16} alt='Song-played' />}
+                  <span style={{ padding: '0 3px' }}>{groupData.songName}</span>
                 </div>
                 {showDate && <div>Created on {getFormattedDate(groupData.dateCreated)}</div>}
               </div>

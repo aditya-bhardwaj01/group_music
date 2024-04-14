@@ -6,22 +6,23 @@
     transform-style: preserve-3d;
     animation: flipAppear 1s forwards;
 }
+
 .CardBack:before {
     content: "";
     position: absolute;
-    width : 100%;
+    width: 100%;
     height: 100%;
     background-color: #E6F6E0;
     z-index: -1;
 
-    filter        : blur(5px);
-    -moz-filter   : blur(5px);
+    filter: blur(5px);
+    -moz-filter: blur(5px);
     -webkit-filter: blur(5px);
-    -o-filter     : blur(5px);
+    -o-filter: blur(5px);
 }
 
 .mainContent {
-    padding: 5px;
+    padding: 10px 15px;
     height: 100%;
     width: 100%;
     position: relative;
@@ -39,7 +40,61 @@
     }
 }
 
-.bottomCotent{
+.topContent {
+    position: relative;
+}
+
+.topContent h4 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.topMainContent{
+    display: flex;
+    flex-direction: row;
+}
+
+.topMainContent>div:nth-child(2){
+    min-width: 120px;
+}
+
+.CopyIcon {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.membersList {
+    font-family: cursive;
+    padding: 0 10px;
+    overflow-y: auto;
+    max-height: 120px;
+    border-radius: 5px;
+    gap: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.singleMember{
+    white-space: nowrap;
+    position: relative;
+}
+
+.circle{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: absolute;
+    top: 9px;
+}
+
+.circle0{
+    background-color: red;
+}
+.circle1{
+    background-color: green;
+}
+
+.bottomCotent {
     width: 100%;
     height: 50px;
     border-radius: 15px 15px 4px 4px;
@@ -53,27 +108,13 @@
     padding: 0 10px;
 }
 
-.bottomCotent:before {
-    content: "";
-    position: absolute;
-    width : 100%;
-    /* height: 100%; */
-    background-color: white;
-    z-index: -1;
-
-    filter        : blur(5px);
-    -moz-filter   : blur(5px);
-    -webkit-filter: blur(5px);
-    -o-filter     : blur(5px);
-}
-
-.bottomCotent > img:first-child{
+.bottomCotent>img:first-child {
     cursor: pointer;
     flex: 1 7%;
     border-radius: 20px;
 }
 
-.groupNameDate{
+.groupNameDate {
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -84,17 +125,18 @@
     font-size: 20px;
 }
 
-.groupNameDate > div:first-child{
+.groupNameDate>div:first-child {
     line-height: 20px;
     display: flex;
     align-items: center;
 }
 
-.groupNameDate > div:nth-child(2), .groupNameDate > div:nth-child(3){
+.groupNameDate>div:nth-child(2),
+.groupNameDate>div:nth-child(3) {
     font-size: 12px;
 }
 
-.scrollBottom{
+.scrollBottom {
     cursor: pointer;
     background-color: #1FDF64;
     display: flex;
@@ -112,4 +154,108 @@
 .scrollBottom img {
     height: 8px;
     width: 12px;
+}
+
+.backCardBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.backBtn {
+    display: flex;
+    padding: 3px 9px;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeeeee4b;
+    border-radius: 3px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    border: none;
+    background: #fff;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.backBtn>svg {
+    margin-right: 1px;
+    margin-left: 1px;
+    font-size: 20px;
+    transition: all 0.4s ease-in;
+}
+
+.backBtn:hover>svg {
+    font-size: 1.2em;
+    transform: translateX(-3px);
+}
+
+.joinBtn {
+    --primary-color: #1FDF64;
+    --secondary-color: #fff;
+    --hover-color: #111;
+    --arrow-width: 10px;
+    --arrow-stroke: 2px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 5px;
+    color: var(--secondary-color);
+    padding: 3px 9px;
+    background: var(--primary-color);
+    display: flex;
+    transition: 0.2s background;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.joinBtn .arrowWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.joinBtn .arrow {
+    margin-top: 1px;
+    width: var(--arrow-width);
+    background: var(--primary-color);
+    height: var(--arrow-stroke);
+    position: relative;
+    transition: 0.2s;
+}
+
+.joinBtn .arrow::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    border: solid var(--secondary-color);
+    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+    display: inline-block;
+    top: -3px;
+    right: 3px;
+    transition: 0.2s;
+    padding: 3px;
+    transform: rotate(-45deg);
+}
+
+.joinBtn:hover {
+    background-color: var(--hover-color);
+}
+
+.joinBtn:hover .arrow {
+    background: var(--secondary-color);
+}
+
+.joinBtn:hover .arrow:before {
+    right: 0;
+}
+
+@media (max-width: 370px) {
+    .topMainContent>div:nth-child(2){
+        min-width: 90px;
+    }
 }

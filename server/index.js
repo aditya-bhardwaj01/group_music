@@ -35,6 +35,9 @@ app.use('/groupManagement/join', joinGroup);
 const ownerGroups = require('./routes/ListGroups/OwnerGroup');
 app.use('/listGroups/owner', ownerGroups);
 
+const memberGroups = require('./routes/ListGroups/MemberGroups');
+app.use('/listGroups/member', memberGroups);
+
 const singleGroupData = require('./routes/ListGroups/SingleGroup');
 app.use('/listGroups/singleGroup', singleGroupData);
 

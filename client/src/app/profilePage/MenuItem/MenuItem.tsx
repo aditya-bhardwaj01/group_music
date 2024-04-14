@@ -1,7 +1,7 @@
 import React from 'react'
 import { RootState } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfilePageActive, toggleMode } from '@/store/slices/applicationState';
+import { setProfilePageActive } from '@/store/slices/applicationState';
 import Cookies from 'js-cookie';
 
 import Image from 'next/image';

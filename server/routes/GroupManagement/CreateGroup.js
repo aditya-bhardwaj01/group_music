@@ -76,6 +76,7 @@ router.post("/", async (request, response) => {
     try {
         secretCodes = await getSecretCodes();
     } catch {
+        console.log("from one");
         response.status(500).json({ error: "Server error!" });
     }
 
