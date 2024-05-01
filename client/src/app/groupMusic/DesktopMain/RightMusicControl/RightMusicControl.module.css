@@ -1,0 +1,109 @@
+.RightMusicControl{
+    height: 70px;
+    width: 84%;
+    position: fixed;
+    bottom: 0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 4%;
+}
+
+.darkModeMain{
+    background-color: #0f0f0f;
+}
+
+.lightModeMain{
+    background-color: #E0E0E0;
+    color: black;
+}
+
+.songImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.songImage img{
+    height: 45px;
+    width: 40px;
+    border-radius: 5px;
+}
+
+.songDetailDark > div:first-child {
+    color: white;
+}
+
+.songDetailDark > div:nth-child(2) {
+    color: #5d5e62;
+    font-size: 12px;
+}
+
+.songDetailLight > div:first-child {
+    color: black;
+}
+
+.songDetailLight > div:nth-child(2) {
+    color: #616161;
+    font-size: 12px;
+}
+
+.songProgress{
+    width: 55%;
+    height: 6px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.timeLight1{
+    color: black;
+}
+
+.timeDark1{
+    color: white;
+}
+
+.timeLight2{
+    color: #616161;
+}
+
+.timeDark2{
+    color: #5d5e62;
+}
+
+.songCompleted{
+    border: solid #1FDF64;
+    background-color: #1FDF64;
+    border-radius: 10px;
+}
+
+.songRemaining{
+    border-radius: 0 10px 10px 0;
+    border: solid gray;
+    background-color: gray;
+}
+
+@media only screen and (width<1361px) {
+    .RightMusicControl{
+        width: 77%;
+    }
+}
+
+@media only screen and (width<915px) {
+    .RightMusicControl{
+        width: 74%;
+    }
+}
+
+@media (height<515px){
+    .RightMusicControl{
+        height: 60px;
+    }
+}

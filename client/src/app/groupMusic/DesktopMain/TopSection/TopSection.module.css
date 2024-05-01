@@ -1,0 +1,99 @@
+.TopSection{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 84%;
+}
+
+.TopSectionLight{
+    background-color: #F1F2ED;
+    color: black;
+}
+
+.TopSectionDark{
+    background-color: #1a1c22;
+    color: white;
+}
+
+.toggleModeLight, .toggleModeDark {
+    background-color: transparent;
+    border: none;
+}
+
+.toggleModeLight img{
+    height: 25px;
+    width: 25px;
+}
+
+.toggleModeDark img{
+    height: 38px;
+    width: 31px;
+}
+
+.logoutBtn {
+    background: transparent;
+    position: relative;
+    padding: 2px 5px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid rgb(255,0,0);
+    border-radius: 7px;
+    outline: none;
+    overflow: hidden;
+    color: rgb(255,0,0);
+    transition: color 0.3s 0.1s ease-out;
+    text-align: center;
+    margin-left: 12px;
+  }
+  
+  .logoutBtn span {
+    margin: 3px;
+  }
+  
+  .logoutBtn::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    content: '';
+    border-radius: 50%;
+    display: block;
+    width: 20em;
+    height: 20em;
+    left: -5em;
+    text-align: center;
+    transition: box-shadow 0.5s ease-out;
+    z-index: -1;
+  }
+  
+  .logoutBtn:hover {
+    color: #fff;
+    border: 1px solid rgb(255,0,0);
+  }
+  
+  .logoutBtn:hover::before {
+    box-shadow: inset 0 0 0 10em rgb(255, 0, 0);
+  }
+
+@media only screen and (width<1361px) {
+    .TopSection{
+        width: 77%;
+    }
+}
+
+@media only screen and (width<915px) {
+    .TopSection{
+        width: 74%;
+    }
+}

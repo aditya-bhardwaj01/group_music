@@ -1,0 +1,40 @@
+.SearchSection{
+    background: transparent;
+}
+
+.searchText{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.searchIcon img{
+    height: 22px;
+    width: 22px;
+}
+
+.searchBox {
+    width: 370px;
+}
+
+.searchBox input{
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    /* border: solid red; */
+    width: 100%;
+}
+
+.searchBox input:focus {
+    outline: none;
+}
+
+.searchBoxLight input {
+    color: black;
+}
+
+.searchBoxDark input {
+    color: white;
+}

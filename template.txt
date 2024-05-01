@@ -1,0 +1,78 @@
+import Cookies from 'js-cookie';
+
+
+axios.post('http://localhost:3001/', {
+      accessToken: Cookies.get('accessToken'),
+    })
+      .then((response) => {
+        setLoading(false);
+        setErrorMsg("");
+      })
+      .catch((error) => {
+        setLoading(false);
+        if (error.response) {
+          if (error.response.status === 404) {
+            setErrorMsg("The resource you are trying to access doesn't exist.");
+          }
+          if (error.response.status === 500) {
+            setErrorMsg("There is a issue on server side. Please try after sometime.");
+          }
+        } else if (error.request) {
+          setErrorMsg("Network error encountered.");
+        } else {
+          setErrorMsg(error.message);
+        }
+      })
+
+
+
+
+
+const express = require("express");
+const router = express.Router();
+const { verify } = require("jsonwebtoken");
+const db = require('../../database/Connection')
+const ACCESSTOKEN = process.env.ACCESSTOKEN
+
+const isAuthenticUser = (userId) => {
+    const query = "";
+    const values = [];
+    return new Promise((resolve, reject) => {
+        db.query(query, values,
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(result);
+                }
+            })
+    })
+}
+
+router.post("/", async (request, response) => {
+    const accessToken = request.body.accessToken;
+    if (!accessToken) {
+        response.status(404).json("You have been logged out.");
+        return;
+    }
+    const validToken = verify(accessToken, ACCESSTOKEN);
+    const userId = validToken.id;
+
+    try {
+        const isAuthentic = await isAuthenticUser(userId);
+        response.status(200).json(isAuthentic);
+    } catch {
+        response.status(500).json({ error: "Server Error" })
+    }
+})
+
+module.exports = router;
+
+
+interface CardBackProps {
+  groupData: CardProps;
+  setShowFront: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CardBack: React.FC<CardBackProps> = ({ groupData, setShowFront }) =>

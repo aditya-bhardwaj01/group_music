@@ -2,8 +2,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  theme: 1,
+  theme: 0,
   profilePageActive: 0,
+  musicPageActive: 'explore',
 };
 
 export const applicationState = createSlice({
@@ -16,10 +17,14 @@ export const applicationState = createSlice({
 
     setProfilePageActive: (state, action) => {
       state.profilePageActive = action.payload
+    },
+
+    setMusicPageActive: (state, action) => {
+      state.musicPageActive = action.payload;
     }
   },
 });
 
-export const { toggleMode, setProfilePageActive } = applicationState.actions
+export const { toggleMode, setProfilePageActive, setMusicPageActive } = applicationState.actions
 
 export default applicationState.reducer;

@@ -31,7 +31,6 @@ router.post("/", async (request, response) => {
 
     try {
         const groupData = await fetchGroupData(userId);
-        console.log(groupData)
         response.status(200).json(groupData);
     } catch {
         response.status(500).json({ error: "Server Error" })

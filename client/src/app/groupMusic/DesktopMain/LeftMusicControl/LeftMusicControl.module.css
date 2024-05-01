@@ -1,0 +1,35 @@
+.LeftMusicControl{
+    height: 70px;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20%;
+}
+
+.darkModeMain{
+    background-color: #0f0f0f;
+    border-right: 1px solid rgb(38, 39, 46);
+}
+
+.lightModeMain{
+    background-color: #E0E0E0;
+    color: black;
+    border-right: 1px solid #E6E6FD;
+}
+
+.previousSong img, .playPause img, .nextSong img{
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+}
+
+
+@media (height<515px){
+    .LeftMusicControl{
+        height: 60px;
+    }
+}

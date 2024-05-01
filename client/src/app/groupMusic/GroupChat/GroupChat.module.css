@@ -1,0 +1,17 @@
+.GroupChat{
+    margin-right: 12px;
+}
+
+.ChatIcon{
+    background-color: transparent;
+    border: none;
+}
+
+.ChatIcon input:focus {
+    outline: none;
+}
+
+.ChatIcon img{
+    height: 30px;
+    width: 30px;
+}

@@ -31,7 +31,6 @@ router.post("/", async (request, response) => {
 
     try {
         members = await getAllMembers(groupId);
-        console.log(members)
         response.status(200).json(members);
     } catch {
         response.status(500).json({ error: "Server Error" })

@@ -1,0 +1,17 @@
+.ContentMain {
+    overflow-y: auto;
+    margin: 50px 0 70px 0;
+    background-color: #F1F2ED;
+    padding: 0 5px;
+    min-height: 81.3vh;
+}
+
+.ContentMainLight{
+    background-color: #F1F2ED;
+    color: black;
+}
+
+.ContentMainDark{
+    background-color: #1a1c22;
+    color: white;
+}
