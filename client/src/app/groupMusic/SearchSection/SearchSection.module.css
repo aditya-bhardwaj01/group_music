@@ -23,7 +23,6 @@
     background-color: transparent;
     border: none;
     height: 40px;
-    /* border: solid red; */
     width: 100%;
 }
 
@@ -37,4 +36,9 @@
 
 .searchBoxDark input {
     color: white;
+}
+
+.searchResult{
+    position: absolute;
+    width: 405px;
 }

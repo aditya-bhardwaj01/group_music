@@ -1,0 +1,45 @@
+.SearchType{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.types {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.types span{
+    padding: 1px 6px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.typesLight span {
+    border: 0.3px solid gray;
+}
+
+.typesDark span {
+    border: 0.3px solid gray;
+}
+
+.activeType{
+    background-color: #1FDF64;
+    color: black;
+}
+
+.typesLight .activeType, .typesDark .activeType{
+    border: none;
+}
+
+.closeModal{
+    cursor: pointer;
+}
+
+.closeModal img{
+    height: 10px;
+    width: 10px;
+}

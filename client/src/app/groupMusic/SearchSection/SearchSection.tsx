@@ -1,25 +1,23 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { RootState } from '@/store/store';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setOpenSearchResult } from '@/store/slices/applicationState';
 import Image from 'next/image';
 import SearchGray from '../../../assets/searchGray.png';
-import getToken from '../apiCalls/getToken';
-import getAuthHeader from '../apiCalls/getAuthHeader';
-import searchForArtist from '../apiCalls/searchForArtists';
 
 import styles from './SearchSection.module.css'
+import SearchResult from '../SearchResult/SearchResult';
 
 const SearchSection = () => {
-  const colorMode = useSelector((state: RootState) => state.applicationState.theme);
-  const [searchType, setSearchType] = useState('');
+  const [searchedText, setSearchedText] = useState('');
+  const dispatch = useDispatch();
+  const colorMode: number = useSelector((state: RootState) => state.applicationState.theme);
+  const showSearchResult: boolean = useSelector((state: RootState) => state.applicationState.openSearchResult);
 
   const searchTypedText = async (event: ChangeEvent<HTMLInputElement>) => {
-    const searchedText = event.target.value;
-    const accessToken = await getToken();
-    const authHeader = getAuthHeader(accessToken);
-    const artist = await searchForArtist(authHeader, searchedText);
-    console.log(artist);
-    ////////////////////////////////////////////////////////////////
+    const typedString = event.target.value;
+    const trimmedString = typedString.trim();
+    setSearchedText(trimmedString);
   }
 
   return (
@@ -29,9 +27,15 @@ const SearchSection = () => {
                 <Image src={SearchGray} alt='search icon' />
             </div>
             <div className={`${styles.searchBox} ${colorMode === 1 ? styles.searchBoxLight : styles.searchBoxDark}`}>
-                <input placeholder='Search music, album, artist' type="text" onChange={searchTypedText} />
+                <input placeholder='Search music, artist, album, playlist' type="text" 
+                onChange={searchTypedText} 
+                onFocus={() => dispatch(setOpenSearchResult(true))}
+                />
             </div>
         </div>
+        {showSearchResult && <div className={styles.searchResult}>
+          <SearchResult searchedText={searchedText} />
+        </div>}
     </div>
   )
 }

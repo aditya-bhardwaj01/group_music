@@ -1,0 +1,89 @@
+.SearchArtist{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.artistSingle {
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+}
+
+.imageContainer {
+    position: relative;
+}
+
+.imageContainer img:first-child{
+    border-radius: 6px;
+}
+
+.blurImg {
+    filter: brightness(45%);
+}
+
+.imageContainer img:nth-child(2) {
+    position: absolute;
+    top: 54%;
+    left: 43%;
+    transform: translateY(-50%);
+}
+
+.duration{
+    text-align: center;
+    font-size: 12px;
+}
+
+.rightSection {
+    margin-left: 10px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.rightSection:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+}
+
+.itemName {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 300px;
+}
+
+.genreName {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 300px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.genreNameLight {
+    color: #616161;
+}
+
+.genreNameDark {
+    color: gray;
+}
+
+.point {
+    height: 4px;
+    width: 4px;
+    border-radius: 2px;
+    background-color: gray;
+}
+
+.artistType {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}

@@ -1,0 +1,30 @@
+.SearchResult{
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.searchCategory{
+    min-height: 10px;
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+.SearchResultDark{
+    background-color: #484644;
+}
+
+.SearchResultLight{
+    background-color: #E0E0E0;
+}
+
+.noResultLight{
+    color: #616161;
+    font-size: 12px;
+    text-align: center;
+}
+
+.noResultDark{
+    color: gray;
+    font-size: 12px;
+    text-align: center;
+}

@@ -5,6 +5,8 @@ const initialState = {
   theme: 0,
   profilePageActive: 0,
   musicPageActive: 'explore',
+  openSearchResult: false,
+  searchType: 'track',
 };
 
 export const applicationState = createSlice({
@@ -21,10 +23,18 @@ export const applicationState = createSlice({
 
     setMusicPageActive: (state, action) => {
       state.musicPageActive = action.payload;
+    },
+
+    setOpenSearchResult: (state, action) => {
+      state.openSearchResult = action.payload;
+    },
+
+    setSearchType: (state, action) => {
+      state.searchType = action.payload;
     }
   },
 });
 
-export const { toggleMode, setProfilePageActive, setMusicPageActive } = applicationState.actions
+export const { toggleMode, setProfilePageActive, setMusicPageActive, setOpenSearchResult, setSearchType } = applicationState.actions
 
 export default applicationState.reducer;

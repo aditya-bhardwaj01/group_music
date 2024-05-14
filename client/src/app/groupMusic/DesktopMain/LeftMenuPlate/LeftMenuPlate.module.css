@@ -41,17 +41,17 @@
 }
 
 .activeOnMainContentLight{
-    background-color: #3d50fa;
+    background-color: rgb(31, 223, 100);
     border-radius: 6px;
     color: black;
-    box-shadow: 0 0 9px 7px rgba(61, 80, 250, 0.3);
+    box-shadow: 0 0 9px 7px rgba(31, 223, 100, 0.3);
 }
 
 .activeOnMainContentDark{
-    background-color: #3d50fa;
+    background-color: rgb(31, 223, 100);
     border-radius: 6px;
     color: white;
-    box-shadow: 0 0 7px 5px rgba(61, 80, 250, 0.3);
+    box-shadow: 0 0 7px 5px rgba(31, 223, 100, 0.3);
 }
 
 .mainContent{

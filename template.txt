@@ -76,3 +76,24 @@ interface CardBackProps {
 }
 
 const CardBack: React.FC<CardBackProps> = ({ groupData, setShowFront }) =>
+
+
+
+import React, { ChangeEvent, useState } from 'react'
+import { RootState } from '@/store/store';
+import { useSelector } from 'react-redux';
+import Image from 'next/image';
+
+import styles from './SearchResult.module.css'
+
+const SearchType = () => {
+  const colorMode = useSelector((state: RootState) => state.applicationState.theme);
+
+  return (
+    <div className={`${styles.SearchType} ${colorMode === 1 ? styles.SearchTypeLight : styles.SearchTypeDark}`}>
+        <div>SearchType</div>
+    </div>
+  )
+}
+
+export default SearchType

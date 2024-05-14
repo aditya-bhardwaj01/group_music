@@ -30,7 +30,7 @@ async function getToken(): Promise<string> {
     });
 
     if (!response.ok) {
-        throw new Error(`Failed to obtain token: ${response.statusText}`);
+        throw new Error(`Failed to obtain token - ${response.statusText}`);
     }
 
     const jsonResult: any = await response.json();
