@@ -5,6 +5,7 @@ import Loading from '../../../assets/loading.gif';
 import { FormError } from '@/components/FormError/page';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { encodeGroupId } from '@/app/utils';
 
 import styles from './JoinForm.module.css';
 
@@ -53,7 +54,7 @@ export const JoinForm = () => {
       .then((response) => {
         setLoading(false);
         setErrorMsg("");
-        router.push(`/groupMusic/${response.data.groupName}`);
+        router.push(`/groupMusic/${response.data.groupName}-${encodeGroupId(response.data.groupId)}`);
       })
       .catch((error) => {
         setLoading(false);

@@ -101,7 +101,7 @@ router.post("/", async (request, response) => {
     if (exist === 0) {
         try {
             await insertUser(userId, group, displayName);
-            response.status(200).json({ groupName: groupName });
+            response.status(200).json({ groupId: group, groupName: groupName });
         } catch {
             response.status(500).json({ error: "Server error!" });
         }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import PlayMusic from '../../../assets/playMusic.png';
 import { useRouter } from "next/navigation";
+import { encodeGroupId } from '@/app/utils';
 
 import styles from './CardFront.module.css'
 
@@ -26,6 +27,7 @@ const CardFront: React.FC<CardFrontProps> = ({ groupData, setShowFront }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1023);
 
+
     useEffect(() => {
         const handleResize = () => {
             setIsDesktop(window.innerWidth > 1023);
@@ -38,7 +40,7 @@ const CardFront: React.FC<CardFrontProps> = ({ groupData, setShowFront }) => {
     }, []);
 
     const goToGroupMusic = () => {
-        router.push('/groupMusic/'+groupData.groupName);
+        router.push('/groupMusic/'+groupData.groupName+`-${encodeGroupId(groupData.id.toString())}`);
     }
 
     return (

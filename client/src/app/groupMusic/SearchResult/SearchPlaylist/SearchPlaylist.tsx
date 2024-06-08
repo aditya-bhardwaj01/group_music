@@ -6,6 +6,7 @@ import getToken from '../../apiCalls/getToken';
 import getAuthHeader from '../../apiCalls/getAuthHeader';
 import searchForResults from '../../apiCalls/searchForResults';
 import playMusic from '../../../../assets/playMusicBack.png'
+import defaultImg from '../../../../assets/DefaultCardImg.jpg'
 
 import styles from './SearchPlaylist.module.css'
 
@@ -34,7 +35,6 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ searchedText }) => {
         const accessToken = await getToken();
         const authHeader = getAuthHeader(accessToken);
         const results = await searchForResults(authHeader, text, 'playlist');
-        console.log(results);
         setSearchResults(results);
     }
 
@@ -44,7 +44,7 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ searchedText }) => {
                 <div className={styles.playlistSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
-                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.images[0].url} width={40} height={40} alt="Playlist Image" />
+                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.images.length === 0 ? defaultImg : item.images[0].url} width={40} height={40} alt="Playlist Image" />
                             {showPlayBtn === index && <Image src={playMusic} width={10} height={10} alt="Play" />}
                         </div>
                     </div>

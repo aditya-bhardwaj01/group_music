@@ -4,9 +4,10 @@ const { verify } = require("jsonwebtoken");
 const db = require('../../database/Connection')
 const ACCESSTOKEN = process.env.ACCESSTOKEN
 
-const isMember = (userId, groupName) => {
-    const query = "select count(*) as count from members a inner join groupsData b on a.userId = ? and a.groupId = b.id and b.groupName = ?";
-    const values = [userId, groupName];
+// Check if the user is a member of that group
+const isMember = (userId, groupName, groupId) => {
+    const query = "select count(*) as count from members a inner join groupsData b on a.userId = ? and a.groupId = b.id and b.groupName = ? and b.id=?";
+    const values = [userId, groupName, groupId];
     return new Promise((resolve, reject) => {
         db.query(query, values,
             (error, result) => {
@@ -20,9 +21,10 @@ const isMember = (userId, groupName) => {
     })
 }
 
-const isOwner = (userId, groupName) => {
-    const query = "select count(*) as count from groupsData where ownerId=? and groupName=?";
-    const values = [userId, groupName];
+// Check if the user is the owner of that group
+const isOwner = (userId, groupName, groupId) => {
+    const query = "select count(*) as count from groupsData where ownerId=? and groupName=? and id=?";
+    const values = [userId, groupName, groupId];
     return new Promise((resolve, reject) => {
         db.query(query, values,
             (error, result) => {
@@ -31,6 +33,26 @@ const isOwner = (userId, groupName) => {
                 }
                 else {
                     resolve(result[0].count >= 1);
+                }
+            })
+    })
+}
+
+// Get the display name of the user if he belongs to the group in any manner.
+const getDisplayName = (type, userId, groupName, groupId) => {
+    let query = "select b.displayName as displayName from members a inner join groupsData b on a.userId=? and a.groupId = b.id and b.groupName=? and b.id=?";
+    if(type === 'owner') {
+        query = "select displayName from groupsData where ownerId=? and groupName=? and id=?";
+    }
+    const values = [userId, groupName, groupId];
+    return new Promise((resolve, reject) => {
+        db.query(query, values,
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(result[0].displayName);
                 }
             })
     })
@@ -44,12 +66,25 @@ router.post("/", async (request, response) => {
     }
     const validToken = verify(accessToken, ACCESSTOKEN);
     const userId = validToken.id;
+    const groupId = request.body.groupId;
     const groupName = request.body.groupName;
 
     try {
-        const member = await isMember(userId, groupName);
-        const owner = await isOwner(userId, groupName);
-        response.status(200).json({isAuthentic: member | owner});
+        const member = await isMember(userId, groupName, groupId);
+        if(member) {
+            const displayName = await getDisplayName('member', userId, groupName, groupId);
+            response.status(200).json({isAuthentic: true, displayName: displayName});
+        } else {
+            const owner = await isOwner(userId, groupName, groupId);
+            if(owner) {
+                const displayName = await getDisplayName('owner', userId, groupName, groupId);
+                response.status(200).json({isAuthentic: true, displayName: displayName});
+            } else {
+                response.status(200).json({isAuthentic: false});
+            }
+        }
+        
+        // response.status(200).json({isAuthentic: member | owner});
     } catch {
         response.status(500).json({ error: "Server Error" })
     }

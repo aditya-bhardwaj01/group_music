@@ -7,6 +7,7 @@ import searchForResults from '../../apiCalls/searchForResults';
 import Image from 'next/image';
 import calculateDuration from '../../commonFunctions/CalculateDuration';
 import playMusic from '../../../../assets/playMusicBack.png'
+import defaultImg from '../../../../assets/DefaultCardImg.jpg'
 
 import styles from './SearchTrack.module.css'
 
@@ -44,7 +45,7 @@ const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
                 <div className={styles.trackSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
-                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.album.images[0].url} width={40} height={40} alt="Song Image" />
+                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.album.images.length === 0 ? defaultImg : item.album.images[0].url} width={40} height={40} alt="Song Image" />
                             {showPlayBtn === index && <Image src={playMusic} width={10} height={10} alt="Play" />}
                         </div>
                         <div className={styles.duration}>{calculateDuration(item.duration_ms)}</div>

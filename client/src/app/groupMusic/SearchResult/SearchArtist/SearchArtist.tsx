@@ -7,6 +7,7 @@ import getAuthHeader from '../../apiCalls/getAuthHeader';
 import searchForResults from '../../apiCalls/searchForResults';
 import playMusic from '../../../../assets/playMusicBack.png'
 import capitalizeFirstLetter from '../../commonFunctions/CapitalizeFirstLetter';
+import defaultImg from '../../../../assets/DefaultCardImg.jpg'
 
 import styles from './SearchArtist.module.css'
 
@@ -35,7 +36,6 @@ const SearchArtist: React.FC<SearchArtistProps> = ({ searchedText }) => {
         const accessToken = await getToken();
         const authHeader = getAuthHeader(accessToken);
         const results = await searchForResults(authHeader, text, 'artist');
-        console.log(results);
         setSearchResults(results);
     }
     
@@ -47,7 +47,7 @@ const SearchArtist: React.FC<SearchArtistProps> = ({ searchedText }) => {
                 >
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
-                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.images[0].url} width={40} height={40} alt="Artist Image" />
+                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.images.length === 0 ? defaultImg : item.images[0].url} width={40} height={40} alt="Artist Image" />
                             {showPlayBtn === index && <Image src={playMusic} width={10} height={10} alt="Play" />}
                         </div>
                     </div>

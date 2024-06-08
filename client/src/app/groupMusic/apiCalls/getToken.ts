@@ -5,8 +5,8 @@ let tokenExpiryTime: Date | null = null;
 async function getToken(): Promise<string> {
     if (accessToken && tokenExpiryTime && new Date() < tokenExpiryTime) return accessToken;
 
-    const CLIENT_ID = "27c26d77c4524d65b42b2c069eda617d";
-    const CLIENT_SECRET = "7d97841f94de4a06b820fa98fa0d7364";
+    const CLIENT_ID = "607554faa3ca4077ad2713a169843a17";
+    const CLIENT_SECRET = "34adba9b9fba4b98a0c4eaae9e4d92dd";
 
     if (!CLIENT_ID || !CLIENT_SECRET) {
         throw new Error('Client ID and Client Secret must be set in environment variables.');

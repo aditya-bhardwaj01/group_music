@@ -7,6 +7,7 @@ import getAuthHeader from '../../apiCalls/getAuthHeader';
 import searchForResults from '../../apiCalls/searchForResults';
 import capitalizeFirstLetter from '../../commonFunctions/CapitalizeFirstLetter';
 import playMusic from '../../../../assets/playMusicBack.png'
+import defaultImg from '../../../../assets/DefaultCardImg.jpg'
 
 import styles from './SearchAlbum.module.css'
 
@@ -46,7 +47,7 @@ const SearchAlbum: React.FC<SearchAlbumProps> = ({ searchedText }) => {
                 >
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
-                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.images[0].url} width={40} height={40} alt="Album Image" />
+                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.images.length === 0 ? defaultImg : item.images[0].url} width={40} height={40} alt="Album Image" />
                             {showPlayBtn === index && <Image src={playMusic} width={10} height={10} alt="Play" />}
                         </div>
                     </div>

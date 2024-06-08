@@ -5,11 +5,14 @@ import Modal from 'react-bootstrap/Modal';
 import Image from 'next/image';
 import ChatDark from '../../../assets/musicPage/topBar/chatDark.png';
 import ChatLight from '../../../assets/musicPage/topBar/chatLight.png';
+import ChatBody from './ChatBody/ChatBody';
+import Members from './Members/Members';
 
 import styles from './GroupChat.module.css'
 
 const GroupChat = () => {
   const colorMode = useSelector((state: RootState) => state.applicationState.theme);
+  const groupName = useSelector((state: RootState) => state.applicationState.groupName);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -21,14 +24,16 @@ const GroupChat = () => {
         <Image src={colorMode === 1 ? ChatLight : ChatDark} alt='Chat' />
       </button>
 
-      <Modal show={show} onHide={handleClose} aria-labelled-by="contained-modal-title-vcenter" data-bs-theme={colorMode === 1 ? 'light' : 'dark'} size='md' centered style={{ color: colorMode===1?'black':'white' }}>
-        <Modal.Header closeButton>
+      <Modal show={show} onHide={handleClose} aria-labelled-by="contained-modal-title-vcenter" data-bs-theme={colorMode === 1 ? 'light' : 'dark'} size='md' centered style={{ color: colorMode === 1 ? 'black' : 'white' }}>
+        <Modal.Header closeButton className={styles.modalHeader}>
           <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: 18 }}>
-            Chit Chat!
+            {/* <div>{groupName}</div> */}
+            <Members />
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          No chat yet
+
+        <Modal.Body className={styles.modalBody}>
+          <ChatBody />
         </Modal.Body>
       </Modal>
     </div>
