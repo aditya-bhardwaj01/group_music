@@ -1,8 +1,8 @@
-.GroupChat{
+.GroupChat {
     margin-right: 12px;
 }
 
-.ChatIcon{
+.ChatIcon {
     background-color: transparent;
     border: none;
 }
@@ -11,18 +11,38 @@
     outline: none;
 }
 
-.ChatIcon img{
+.ChatIcon img {
     height: 30px;
     width: 30px;
 }
 
-.modalHeader{
+.modalHeader {
     align-items: flex-start;
     border: none;
-    /* border-bottom: 1px solid gray;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px; */
-    padding: 10px 20px;
+    padding: 0 10px;
+    overflow-x: auto;
+}
+
+.modalHeader::-webkit-scrollbar {
+    height: 1px;
+}
+
+.modalHeader::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.modalHeader:hover::-webkit-scrollbar-thumb {
+    background: #1FDF64;
+    border-radius: 4px;
+}
+
+
+.modalHeader:hover::-webkit-scrollbar-thumb:hover {
+    background: lightgreen;
+}
+
+.modalHeader button {
+    display: none;
 }
 
 .modalBody {

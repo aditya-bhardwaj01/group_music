@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { RootState } from '@/store/store';
 import { useSelector } from 'react-redux';
 import SearchType from './SearchType/SearchType';
-import Image from 'next/image';
 import SearchTrack from './SearchTrack/SearchTrack';
 import SearchArtist from './SearchArtist/SearchArtist';
 import SearchAlbum from './SearchAlbum/SearchAlbum';
@@ -44,7 +43,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ searchedText }) => {
       <SearchType />
       <hr />
       {searchedText === '' && <div className={`${colorMode === 1 ? styles.noResultLight : styles.noResultDark}`}>No results!!</div>}
-      <div className={styles.searchCategory}>{searchCategory}</div>
+      {searchedText !== '' && <div className={styles.searchCategory}>{searchCategory}</div>}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { RootState } from '@/store/store';
 import { useSelector } from 'react-redux';
 import Cookies from "js-cookie";
@@ -10,22 +10,25 @@ import styles from './Members.module.css'
 
 const Members = () => {
     const [loading, setLoading] = useState(false);
-    const [members, setMembers] = useState([]);
     const [errorMsg, setErrorMsg] = useState('');
+    const [members, setMembers] = useState([]);
+    const [owner, setOwner] = useState({ userId: -1, displayName: '' });
+    const myId = useRef<number>();
     const colorMode = useSelector((state: RootState) => state.applicationState.theme);
     const encodedGroupId = useSelector((state: RootState) => state.applicationState.encodedGroupId);
-    const displayName = useSelector((state: RootState) => state.applicationState.displayName);
     const groupId = decodeGroupId(encodedGroupId.toString());
 
     useEffect(() => {
         setLoading(true);
-        axios.post('http://localhost:3001/listGroups/singleGroup', {
-            // // // // // // check for displayname in chat window
+        axios.post('http://localhost:3001/groupMusic/getMembers', {
             groupId: groupId,
             accessToken: Cookies.get('accessToken'),
         })
             .then((response) => {
-                setMembers(response.data);
+                console.log(response.data);
+                setOwner(response.data.owner[0]);
+                setMembers(response.data.members);
+                myId.current = response.data.userId;
                 setLoading(false);
                 setErrorMsg("");
             })
@@ -47,20 +50,31 @@ const Members = () => {
     }, [])
 
     return (
-        <div className={`${styles.Members} ${colorMode === 1 ? styles.MembersLight : styles.MembersDark}`}>
+        <div 
+        className={`${styles.Members} ${colorMode === 1 ? styles.MembersLight : styles.MembersDark}`}
+        >
             <div className={styles.singleMember}>
                 <div className={styles.profileImage} style={{ backgroundColor: getColorHexValue() }}>
-                    {getImageLetters(displayName)}
+                    {getImageLetters(owner.displayName)}
                 </div>
-                <div className={styles.memberName}>{displayName}</div>
+                <div className={styles.memberName}>
+                    {owner.displayName}
+                    <br />
+                    {owner.userId === myId.current ? ' (Admin - You)' : ' (Admin)'}
+                    {/* 2. Scroll bar css */}
+                </div>
             </div>
 
             {members.map((member: any, index: number) => {
-                return <div className={styles.singleMember}>
+                return <div key={index} className={styles.singleMember}>
                     <div className={styles.profileImage} style={{ backgroundColor: getColorHexValue() }}>
                         {getImageLetters(member.displayName)}
                     </div>
-                    <div className={styles.memberName}>{member.displayName}</div>
+                    <div className={styles.memberName}>
+                        {member.displayName}
+                        <br />
+                        {member.userId === myId.current && ' (You)'}
+                    </div>
                 </div>
             })}
         </div>

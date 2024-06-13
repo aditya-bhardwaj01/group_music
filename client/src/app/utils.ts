@@ -15,7 +15,7 @@ export const getImageLetters = (name: string) => {
 }
 
 export const getColorHexValue = () => {
-    const colors = ['B467E0', '84A596', '9CE070', 'A090F4', '6466DC', 'B2A097'];
+    // const colors = ['B467E0', '84A596', '9CE070', 'A090F4', '6466DC', 'B2A097'];
     // Implement random colors and also rectify the alignments issue with the sign up declarations
     const threshold = 100;
     const r = Math.floor(Math.random() * (256 - threshold) + threshold);

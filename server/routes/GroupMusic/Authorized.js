@@ -40,7 +40,7 @@ const isOwner = (userId, groupName, groupId) => {
 
 // Get the display name of the user if he belongs to the group in any manner.
 const getDisplayName = (type, userId, groupName, groupId) => {
-    let query = "select b.displayName as displayName from members a inner join groupsData b on a.userId=? and a.groupId = b.id and b.groupName=? and b.id=?";
+    let query = "select a.displayName as displayName from members a inner join groupsData b on a.userId=? and a.groupId = b.id and b.groupName=? and b.id=?";
     if(type === 'owner') {
         query = "select displayName from groupsData where ownerId=? and groupName=? and id=?";
     }
@@ -83,8 +83,6 @@ router.post("/", async (request, response) => {
                 response.status(200).json({isAuthentic: false});
             }
         }
-        
-        // response.status(200).json({isAuthentic: member | owner});
     } catch {
         response.status(500).json({ error: "Server Error" })
     }

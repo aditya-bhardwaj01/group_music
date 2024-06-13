@@ -41,7 +41,7 @@ const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
 
     return (
         <div className={`${styles.SearchTrack} ${colorMode === 1 ? styles.SearchTrackLight : styles.SearchTrackDark}`}>
-            {searchResults.map((item: any, index: number) => (
+            {searchResults && searchResults.map((item: any, index: number) => (
                 <div className={styles.trackSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>

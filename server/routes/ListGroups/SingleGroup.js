@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { verify } = require('jsonwebtoken');
-const ACCESSTOKEN = process.env.ACCESSTOKEN
 const db = require('../../database/Connection')
 
 const getAllMembers = (groupId) => {

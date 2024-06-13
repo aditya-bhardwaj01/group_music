@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { RootState } from '@/store/store';
 import { useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
@@ -12,7 +12,7 @@ import styles from './GroupChat.module.css'
 
 const GroupChat = () => {
   const colorMode = useSelector((state: RootState) => state.applicationState.theme);
-  const groupName = useSelector((state: RootState) => state.applicationState.groupName);
+  const headerRef = useRef<HTMLDivElement>(null)
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,9 +25,8 @@ const GroupChat = () => {
       </button>
 
       <Modal show={show} onHide={handleClose} aria-labelled-by="contained-modal-title-vcenter" data-bs-theme={colorMode === 1 ? 'light' : 'dark'} size='md' centered style={{ color: colorMode === 1 ? 'black' : 'white' }}>
-        <Modal.Header closeButton className={styles.modalHeader}>
+        <Modal.Header closeButton className={styles.modalHeader} ref={headerRef}>
           <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: 18 }}>
-            {/* <div>{groupName}</div> */}
             <Members />
           </Modal.Title>
         </Modal.Header>

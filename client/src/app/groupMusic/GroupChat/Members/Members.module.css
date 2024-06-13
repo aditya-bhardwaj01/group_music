@@ -2,8 +2,9 @@
     font-size: 12px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 10px;
+    align-items: flex-start;
+    scrollbar-color: blue;
+    cursor: pointer;
 }
 
 .singleMember {
@@ -12,6 +13,8 @@
     align-items: center;
     justify-content: center;
     margin-top: 10px;
+    /* border: solid red; */
+    min-width: 100px;
 }
 
 .profileImage {
@@ -26,7 +29,8 @@
 .memberName {
     padding: 2px 7px;
     border-radius: 7px;
-    background-color: #0093E9;
-    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    text-align: center;
+    /* background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
     color: white;
 }

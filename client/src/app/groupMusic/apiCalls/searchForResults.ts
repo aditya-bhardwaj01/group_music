@@ -34,7 +34,6 @@ async function searchForResults(headers: AuthHeader, artistName: string, type: s
     }
 
     if (result.length === 0) {
-        console.log("No artist with this name exists.");
         return null;
     }
 

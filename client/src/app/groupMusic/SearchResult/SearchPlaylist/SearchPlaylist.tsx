@@ -40,7 +40,7 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ searchedText }) => {
 
     return (
         <div className={`${styles.SearchPlaylist} ${colorMode === 1 ? styles.SearchPlaylistLight : styles.SearchPlaylistDark}`}>
-            {searchResults.map((item: any, index: number) => (
+            {searchResults && searchResults.map((item: any, index: number) => (
                 <div className={styles.playlistSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>

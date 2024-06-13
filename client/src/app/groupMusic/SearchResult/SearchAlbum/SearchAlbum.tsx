@@ -41,7 +41,7 @@ const SearchAlbum: React.FC<SearchAlbumProps> = ({ searchedText }) => {
 
     return (
         <div className={`${styles.SearchAlbum} ${colorMode === 1 ? styles.SearchAlbumLight : styles.SearchAlbumDark}`}>
-            {searchResults.map((item: any, index: number) => (
+            {searchResults && searchResults.map((item: any, index: number) => (
                 <div className={styles.albumSingle} key={item.id} 
                 onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}
                 >

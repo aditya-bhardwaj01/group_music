@@ -49,9 +49,9 @@ export default function GroupMusic({ params }: { params: { groupName: string } }
                     router.push('/profilePage');
                 }
                 setIsAuthenticated(response.data.isAuthentic === true);
+                dispatch(setDisplayName(response.data.displayName));
                 setLoading(false);
                 setErrorMsg("");
-                setDisplayName(response.data.displayName);
             })
             .catch((error) => {
                 setLoading(false);

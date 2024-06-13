@@ -45,6 +45,9 @@ app.use('/listGroups/singleGroup', singleGroupData);
 const isAuthenticUser = require('./routes/GroupMusic/Authorized');
 app.use('/groupMusic/isAuthentic', isAuthenticUser);
 
+const getMembers = require('./routes/GroupMusic/GetMembers');
+app.use('/groupMusic/getMembers', getMembers);
+
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");
 })

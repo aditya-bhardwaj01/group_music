@@ -53,7 +53,7 @@
 }
 
 @media only screen and (width<580px) {
-    .signUpForm input{
+    .signUpForm input[type="text"] {
         width: 100%;
     }
 }

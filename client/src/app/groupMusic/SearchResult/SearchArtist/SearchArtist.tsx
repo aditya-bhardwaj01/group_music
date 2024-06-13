@@ -41,7 +41,7 @@ const SearchArtist: React.FC<SearchArtistProps> = ({ searchedText }) => {
     
     return (
         <div className={`${styles.SearchArtist} ${colorMode === 1 ? styles.SearchArtistLight : styles.SearchArtistDark}`}>
-            {searchResults.map((item: any, index: number) => (
+            {searchResults && searchResults.map((item: any, index: number) => (
                 <div className={styles.artistSingle} key={item.id} 
                 onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}
                 >
