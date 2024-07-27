@@ -58,6 +58,26 @@ const getDisplayName = (type, userId, groupName, groupId) => {
     })
 }
 
+
+const setUserActive = (type, userId, groupId) => {
+    let query = "UPDATE members SET status=? WHERE userId=? and groupId=?";
+    if(type === 'owner') {
+        query = "UPDATE groupsData SET status=? WHERE ownerId=? and id=?"
+    }
+    const values = [1, userId, groupId];
+    return new Promise((resolve, reject) => {
+        db.query(query, values,
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(result);
+                }
+            })
+    })
+}
+
 router.post("/", async (request, response) => {
     const accessToken = request.body.accessToken;
     if (!accessToken) {
@@ -73,11 +93,13 @@ router.post("/", async (request, response) => {
         const member = await isMember(userId, groupName, groupId);
         if(member) {
             const displayName = await getDisplayName('member', userId, groupName, groupId);
+            await setUserActive('member', userId, groupId);
             response.status(200).json({isAuthentic: true, displayName: displayName});
         } else {
             const owner = await isOwner(userId, groupName, groupId);
             if(owner) {
                 const displayName = await getDisplayName('owner', userId, groupName, groupId);
+                await setUserActive('owner', userId, groupId);
                 response.status(200).json({isAuthentic: true, displayName: displayName});
             } else {
                 response.status(200).json({isAuthentic: false});

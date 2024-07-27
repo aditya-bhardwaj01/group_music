@@ -11,15 +11,15 @@ interface CardProps {
     ownerId: number;
     songImage: string;
     songName: string;
-  }
+}
 
 const Card: React.FC<{ groupData: CardProps }> = ({ groupData }) => {
     const [showFront, setShowFront] = useState(true);
     return (
         <>
-            {showFront ? 
-            <CardFront groupData={groupData} setShowFront={setShowFront} /> : 
-            <CardBack groupData={groupData} setShowFront={setShowFront} />}
+            {showFront ?
+                <CardFront groupData={groupData} setShowFront={setShowFront} /> :
+                <CardBack groupData={groupData} setShowFront={setShowFront} />}
         </>
     )
 }

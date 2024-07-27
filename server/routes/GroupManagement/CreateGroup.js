@@ -44,8 +44,8 @@ const generateUniqueGroupCode = async (secretCodes) => {
 
 
 const insertGroup = (groupName, generatedCode, ownerId, displayName) => {
-    const query = "insert into groupsdata (groupName, groupSecretCode, ownerId, displayName) values (?, ?, ?, ?)";
-    const values = [groupName, generatedCode, ownerId, displayName];
+    const query = "insert into groupsdata (groupName, groupSecretCode, ownerId, displayName, status) values (?, ?, ?, ?, ?)";
+    const values = [groupName, generatedCode, ownerId, displayName, 0];
     return new Promise((resolve, reject) => {
         db.query(query, values,
             (error, result) => {
@@ -76,7 +76,6 @@ router.post("/", async (request, response) => {
     try {
         secretCodes = await getSecretCodes();
     } catch {
-        console.log("from one");
         response.status(500).json({ error: "Server error!" });
     }
 

@@ -5,7 +5,7 @@ const db = require('../../database/Connection');
 const ACCESSTOKEN = process.env.ACCESSTOKEN;
 
 const getOwner = (groupId) => {
-    const query = "select ownerId as userId, displayName from groupsdata where id=?";
+    const query = "select ownerId as userId, displayName, status from groupsdata where id=?";
     const values = [groupId];
 
     return new Promise((resolve, reject) => {
@@ -22,7 +22,7 @@ const getOwner = (groupId) => {
 }
 
 const groupMembers = (groupId) => {
-    const query = "select userId, displayName from members where groupId=?";
+    const query = "select userId, displayName, status from members where groupId=?";
     const values = [groupId];
 
     return new Promise((resolve, reject) => {

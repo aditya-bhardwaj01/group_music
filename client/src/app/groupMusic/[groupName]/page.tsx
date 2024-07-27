@@ -9,9 +9,15 @@ import { Loading } from '@/components/Loading/Loading';
 import MainGroupMusic from '../MainGroupMusic/MainGroupMusic';
 import { setGroupName, setGroupId, setDisplayName } from '@/store/slices/applicationState';
 import { useDispatch } from 'react-redux';
+import socket from '../../../socket';
+import { Socket } from 'socket.io-client';
+import { decodeGroupId } from '@/app/utils';
 
 import styles from './page.module.css';
-import { decodeGroupId } from '@/app/utils';
+
+interface ExtendedSocket extends Socket {
+    hasEmittedNewUser?: boolean;
+}
 
 export default function GroupMusic({ params }: { params: { groupName: string } }) {
     const dispatch = useDispatch();
@@ -26,15 +32,55 @@ export default function GroupMusic({ params }: { params: { groupName: string } }
     const groupName = decodeURIComponent(params.groupName.substring(0, lastDashIndex));
     const encodedId = decodeURIComponent(params.groupName.substring(lastDashIndex + 1));
     const decodedGroupId = decodeGroupId(encodedId);
+    const extendedSocket = socket as ExtendedSocket;
     dispatch(setGroupName(groupName));
     dispatch(setGroupId(encodedId));
+
+    const addNewUser = (displayName: string) => {
+        if (!extendedSocket.hasEmittedNewUser) {
+            extendedSocket.emit('newUser', {
+                displayName: displayName,
+                groupId: decodedGroupId,
+                accessToken: Cookies.get('accessToken'),
+            });
+            extendedSocket.hasEmittedNewUser = true;
+        }
+    }
+
+    const removeUserFromCurrentGroup = () => {
+        extendedSocket.emit('removeUserFromCurrentGroup', {
+            groupId: decodedGroupId,
+            accessToken: Cookies.get('accessToken'),
+        });
+    }
 
     useEffect(() => {
         const retrievedAccessToken = Cookies.get('accessToken');
         if (!retrievedAccessToken) {
             router.push('/login');
         }
-    }, [])
+
+        const userJoinedHandler = (msg: string) => {
+            console.log(msg);
+        };
+        const handleRemovedUser = () => {
+            console.log("user removed from current group");
+        };
+        const handlePopState = () => {
+            removeUserFromCurrentGroup();
+            extendedSocket.hasEmittedNewUser = false;
+        };
+
+        socket.on('userJoined', userJoinedHandler);
+        socket.on('removedUser', handleRemovedUser);
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            socket.off('userJoined', userJoinedHandler);
+            socket.on('removedUser', handleRemovedUser);
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, []);
 
     useEffect(() => {
         setLoading(true);
@@ -48,8 +94,10 @@ export default function GroupMusic({ params }: { params: { groupName: string } }
                     Swal.fire("Alas! You don't belong to this group!");
                     router.push('/profilePage');
                 }
+
                 setIsAuthenticated(response.data.isAuthentic === true);
                 dispatch(setDisplayName(response.data.displayName));
+                addNewUser(response.data.displayName);
                 setLoading(false);
                 setErrorMsg("");
             })
@@ -76,3 +124,11 @@ export default function GroupMusic({ params }: { params: { groupName: string } }
         {loading && <div className={styles.groupMusic}><Loading height={70} width={70} /></div>}
     </div>
 }
+
+
+
+// start working on send message send and receive
+// create a database having columns id, groupId, senderId, displayName and message, date-time
+// create a table for eash user and his chat status - id, userId, groupId, chatStatus
+// if chat is opened no action has to done
+// if chat is closed and if message is received in a group for a user than set the chatStatus to 1 (meaning having unseen message)

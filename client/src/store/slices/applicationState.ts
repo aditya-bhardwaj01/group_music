@@ -8,7 +8,7 @@ const initialState = {
   openSearchResult: false,
   searchType: 'track',
   groupName: '',
-  encodedGroupId: 0,
+  encodedGroupId: '',
   displayName: '',
 };
 

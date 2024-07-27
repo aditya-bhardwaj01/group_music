@@ -7,13 +7,20 @@
     cursor: pointer;
 }
 
+.MembersLight .memberName {
+    color: black;
+}
+
+.MembersDark .memberName {
+    color: white;
+}
+
 .singleMember {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-    /* border: solid red; */
     min-width: 100px;
 }
 
@@ -30,7 +37,18 @@
     padding: 2px 7px;
     border-radius: 7px;
     text-align: center;
-    /* background-color: #0093E9;
-    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
-    color: white;
+}
+
+.circle{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+}
+
+.circle0{
+    background-color: red;
+}
+.circle1{
+    background-color: green;
 }

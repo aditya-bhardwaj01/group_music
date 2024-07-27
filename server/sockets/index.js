@@ -1,12 +1,7 @@
-const chatHandler = require('./chat');
-
-module.exports = (io) => {
+const socketHandlers = (io) => {
     io.on('connection', (socket) => {
-        console.log('a user connected');
-        chatHandler(io, socket);
-
-        socket.on('disconnect', () => {
-            console.log('user disconnected');
-        });
+        require('./connection')(socket, io);
     });
 };
+
+module.exports = socketHandlers;
