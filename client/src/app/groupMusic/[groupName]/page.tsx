@@ -61,10 +61,10 @@ export default function GroupMusic({ params }: { params: { groupName: string } }
         }
 
         const userJoinedHandler = (msg: string) => {
-            console.log(msg);
+            // console.log(msg);
         };
         const handleRemovedUser = () => {
-            console.log("user removed from current group");
+            // console.log("user removed from current group");
         };
         const handlePopState = () => {
             removeUserFromCurrentGroup();
@@ -77,7 +77,7 @@ export default function GroupMusic({ params }: { params: { groupName: string } }
 
         return () => {
             socket.off('userJoined', userJoinedHandler);
-            socket.on('removedUser', handleRemovedUser);
+            socket.off('removedUser', handleRemovedUser);
             window.removeEventListener('popstate', handlePopState);
         };
     }, []);
@@ -124,11 +124,3 @@ export default function GroupMusic({ params }: { params: { groupName: string } }
         {loading && <div className={styles.groupMusic}><Loading height={70} width={70} /></div>}
     </div>
 }
-
-
-
-// start working on send message send and receive
-// create a database having columns id, groupId, senderId, displayName and message, date-time
-// create a table for eash user and his chat status - id, userId, groupId, chatStatus
-// if chat is opened no action has to done
-// if chat is closed and if message is received in a group for a user than set the chatStatus to 1 (meaning having unseen message)

@@ -1,0 +1,107 @@
+.messageContainer {
+    overflow-y: scroll;
+    max-height: 150px;
+    padding: 0 10px;
+    overflow-x: hidden;
+}
+
+.ChatBodyLight {
+    color: black;
+}
+
+.ChatBodyDark {
+    color: white;
+}
+
+.singleMessage {
+    margin: 10px 0;
+    word-break: break-all;
+    color: black;
+}
+
+.myMessage {
+    text-align: right;
+}
+
+.othersMessage {
+    text-align: left;
+}
+
+.messageInner {
+    display: inline-block;
+    /* overflow-x: scroll; */
+}
+
+.senderName {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.messageText {
+    font-weight: bold;
+    font-size: 12px;
+    text-wrap: word-wrap;
+}
+
+.messageDateTime {
+    font-style: italic;
+    font-weight: lighter;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.myMessage .messageInner {
+    padding: 0 10px;
+    border-radius: 10px;
+    background-image: linear-gradient(to right top, #b4eb12, #81bb18, #548d16, #2e6110, #103705);
+}
+
+.othersMessage .messageInner {
+    padding: 0 10px;
+    border-radius: 10px;
+    background-image: linear-gradient(to right top, #051937, #113c63, #166491, #1490bf, #12beeb);
+}
+
+.messageSender {
+    padding-top: 5px;
+}
+
+.msgTyping {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    width: 90%;
+    border-bottom: 2px solid gray;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.msgTypingLight {
+    background-color: #D0D3D2;
+}
+
+.msgTyping:focus {
+    border: none;
+    border-bottom: 2px solid #1FDF64;
+}
+
+.sendBtn {
+    background: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-left: 1%;
+    padding: 5px;
+    border-radius: 11px;
+    background-color: #121212;
+}
+
+.sendBtnWhite {
+    background-color: #D0D3D2;
+}
+
+.sendBtn img {
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    height: 22px;
+    width: 22px;
+}

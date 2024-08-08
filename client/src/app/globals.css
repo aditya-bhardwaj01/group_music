@@ -48,3 +48,9 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: lightgreen;
 }
+
+/* for firefox */
+/* * {
+  scrollbar-width: thin;
+  scrollbar-color: #1FDF64 transparent;
+} */

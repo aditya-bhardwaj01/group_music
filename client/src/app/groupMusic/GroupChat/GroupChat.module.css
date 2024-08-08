@@ -46,6 +46,6 @@
 }
 
 .modalBody {
-    max-height: 200px;
-    overflow-y: scroll;
+    max-height: 250px;
+    overflow-y: hidden;
 }

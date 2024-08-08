@@ -30,7 +30,6 @@ const GroupChat = () => {
             <Members />
           </Modal.Title>
         </Modal.Header>
-
         <Modal.Body className={styles.modalBody}>
           <ChatBody />
         </Modal.Body>

@@ -71,6 +71,10 @@ app.use('/groupMusic/isAuthentic', isAuthenticUser);
 const getMembers = require('./routes/GroupMusic/GetMembers');
 app.use('/groupMusic/getMembers', getMembers);
 
+// Chat routers
+const getChatMessages = require('./routes/ChatMessages/GetGroupChats');
+app.use('/chat/getMessages', getChatMessages);
+
 // WebSocket setup
 const socketHandlers = require('./sockets');
 socketHandlers(io);
