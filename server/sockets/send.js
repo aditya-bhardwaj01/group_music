@@ -20,19 +20,18 @@ const addMessageToDataBase = (message, senderId, senderName, groupId) => {
 }
 
 module.exports = (socket, io, groupSocketIds) => {
-    socket.on('sendMsg', (data) => {
+    socket.on('sendMsg', async (data) => {
         const socketId = socket.id;
         const message = data.message;
         const senderName = data.displayName;
         const groupId = data.groupId;
         const accessToken = data.accessToken;
         if(!accessToken) {
-            socket.broadcast.emit('error', { message: "You have logged out of your account!" });
             return;
         }
         const validToken = verify(accessToken, ACCESSTOKEN);
         const senderId = validToken.id;
-        addMessageToDataBase(message, senderId, senderName, groupId);
+        await addMessageToDataBase(message, senderId, senderName, groupId);
         messageEmitter(socket, groupSocketIds.get(groupId), 'receiveMsg', {
             message: message,
             senderName: senderName,

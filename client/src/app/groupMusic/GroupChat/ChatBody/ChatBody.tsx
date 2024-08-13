@@ -3,8 +3,8 @@ import axios from 'axios';
 import { RootState } from '@/store/store';
 import { useSelector } from 'react-redux';
 import socket from '../../../../socket';
-import SendMsg from '../../../../assets/musicPage/chat/sendMsg.png';
 import { Socket } from 'socket.io-client';
+import SendMsg from '../../../../assets/musicPage/chat/sendMsg.png';
 import Cookies from 'js-cookie';
 import { decodeGroupId, formatDateString } from '@/app/utils';
 import { FormError } from '@/components/FormError/page';
@@ -126,7 +126,6 @@ const ChatBody = () => {
             groupId: decodeGroupId(encodedGroupId),
             accessToken: Cookies.get('accessToken'),
         });
-        console.log(messageContainerDiv.current)
         messageContainerDiv.current?.scrollIntoView({ behavior: 'smooth' });
         appendMessage(msg, displayName, styles.myMessage);
     };

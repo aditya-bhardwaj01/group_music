@@ -9,7 +9,6 @@ module.exports = (socket, io, groupSocketIds) => {
         const groupId = data.groupId;
         const accessToken = data.accessToken;
         if (!accessToken) {
-            socket.broadcast.emit('error', { message: "You have logged out of your account!" });
             return;
         }
 

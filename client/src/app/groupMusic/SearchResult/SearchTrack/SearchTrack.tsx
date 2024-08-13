@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
+import socket from '../../../../socket';
 import { RootState } from '@/store/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import getToken from '../../apiCalls/getToken';
 import getAuthHeader from '../../apiCalls/getAuthHeader';
 import searchForResults from '../../apiCalls/searchForResults';
 import Image from 'next/image';
 import calculateDuration from '../../commonFunctions/CalculateDuration';
-import playMusic from '../../../../assets/playMusicBack.png'
-import defaultImg from '../../../../assets/DefaultCardImg.jpg'
+import playMusic from '../../../../assets/playMusicBack.png';
+import defaultImg from '../../../../assets/DefaultCardImg.jpg';
+import { decodeGroupId } from '@/app/utils';
+import { setTrackId } from '@/store/slices/applicationState';
 
 import styles from './SearchTrack.module.css'
 
@@ -18,7 +21,10 @@ interface SearchTrackProps {
 const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
     const [searchResults, setSearchResults] = useState<any>([]);
     const [showPlayBtn, setShowPlayBtn] = useState(-1);
+    const dispatch = useDispatch();
     const colorMode = useSelector((state: RootState) => state.applicationState.theme);
+    const encodedGroupId = useSelector((state: RootState) => state.applicationState.encodedGroupId);
+    const decodedGroupId = decodeGroupId(encodedGroupId);
 
     useEffect(() => {
         makeApiCalls(searchedText);
@@ -39,10 +45,18 @@ const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
         setSearchResults(results);
     }
 
+    const playMusicEmitter = (trackId: string) => {
+        socket.emit('playMusic', {
+            trackId: trackId,
+            groupId: decodedGroupId,
+        })
+        dispatch(setTrackId(trackId));
+    }
+
     return (
         <div className={`${styles.SearchTrack} ${colorMode === 1 ? styles.SearchTrackLight : styles.SearchTrackDark}`}>
             {searchResults && searchResults.map((item: any, index: number) => (
-                <div className={styles.trackSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}>
+                <div className={styles.trackSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)} onClick={() => playMusicEmitter(item.id)}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
                             <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.album.images.length === 0 ? defaultImg : item.album.images[0].url} width={40} height={40} alt="Song Image" />

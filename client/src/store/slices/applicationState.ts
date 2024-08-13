@@ -10,6 +10,7 @@ const initialState = {
   groupName: '',
   encodedGroupId: '',
   displayName: '',
+  currentTrackId: '',
 };
 
 export const applicationState = createSlice({
@@ -46,6 +47,10 @@ export const applicationState = createSlice({
 
     setDisplayName: (state, action) => {
       state.displayName = action.payload;
+    },
+
+    setTrackId: (state, action) => {
+      state.currentTrackId = action.payload;
     }
   },
 });
@@ -59,6 +64,7 @@ export const {
               setGroupName,
               setGroupId,
               setDisplayName,
+              setTrackId,
              } = applicationState.actions
 
 export default applicationState.reducer;
