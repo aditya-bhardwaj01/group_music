@@ -2,8 +2,8 @@ type AuthHeader = {
     Authorization: string;
 };
 
-async function searchForResults(headers: AuthHeader, artistName: string, type: string): Promise<any | null> {
-    const url = `https://api.spotify.com/v1/search?q=${artistName}&type=${type}&limit=5`;
+async function searchForResults(headers: AuthHeader, searchText: string, type: string): Promise<any | null> {
+    const url = `https://api.spotify.com/v1/search?q=${searchText}&type=${type}&limit=5`;
 
     const response = await fetch(url, {
         method: 'GET',
