@@ -8,6 +8,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Loading } from '@/components/Loading/Loading';
 import NoGroup from '../NoGroup/NoGroup';
+import { backendBaseURL } from '@/backendBaseURL';
 
 import styles from './MemberGroup.module.css'
 
@@ -30,7 +31,7 @@ const MemberGroup = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.post('http://localhost:3001/listGroups/member', {
+    axios.post(`${backendBaseURL}/listGroups/member`, {
       accessToken: Cookies.get('accessToken')
     })
       .then((response) => {

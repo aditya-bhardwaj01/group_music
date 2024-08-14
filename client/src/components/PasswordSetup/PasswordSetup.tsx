@@ -7,6 +7,7 @@ import ShowPassword from '../../assets/showPassword.png'
 import HidePassword from '../../assets/hidePassword.png'
 import styles from './PasswordSetup.module.css'
 import { FormError } from '@/components/FormError/page'
+import { backendBaseURL } from '@/backendBaseURL'
 
 type PasswordSetupProp = {
     setActiveSection: React.Dispatch<React.SetStateAction<number>>;
@@ -60,11 +61,11 @@ export const PasswordSetup: React.FC<PasswordSetupProp> = ({ setActiveSection, s
             setErrorMsg("");
         }
 
-        let url = "http://localhost:3001/users/resetPassword";
+        let url = `${backendBaseURL}/users/resetPassword`;
         let data: dataType = { email: email, password: password }
 
         if (name) {
-            url = 'http://localhost:3001/users/signup';
+            url = `${backendBaseURL}/users/signup`;
             data = { email: email, name: name, password: password }
         }
         setSending(true);

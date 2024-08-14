@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Cookies from "js-cookie";
 import axios from 'axios';
 import { decodeGroupId, getColorHexValue, getImageLetters } from '../../../utils';
+import { backendBaseURL } from '@/backendBaseURL';
 
 import styles from './Members.module.css'
 
@@ -19,7 +20,7 @@ const Members = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.post('http://localhost:3001/groupMusic/getMembers', {
+        axios.post(`${backendBaseURL}/groupMusic/getMembers`, {
             groupId: groupId,
             accessToken: Cookies.get('accessToken'),
         })

@@ -6,6 +6,7 @@ import { FormError } from '@/components/FormError/page';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { encodeGroupId } from '@/app/utils';
+import { backendBaseURL } from '@/backendBaseURL';
 
 import styles from './JoinForm.module.css';
 
@@ -46,7 +47,7 @@ export const JoinForm = () => {
 
   const joinGroup = () => {
     setLoading(true);
-    axios.post('http://localhost:3001/groupManagement/join', {
+    axios.post(`${backendBaseURL}/groupManagement/join`, {
       secretCode: code.trim(),
       displayName: name.trim(),
       accessToken: Cookies.get('accessToken')

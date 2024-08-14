@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import socket from '../../../socket';
 import { Socket } from 'socket.io-client';
 import { decodeGroupId } from '@/app/utils';
+import { backendBaseURL } from '@/backendBaseURL';
 
 import styles from './page.module.css';
 
@@ -84,7 +85,7 @@ export default function GroupMusic({ params }: { params: { groupName: string } }
 
     useEffect(() => {
         setLoading(true);
-        axios.post('http://localhost:3001/groupMusic/isAuthentic', {
+        axios.post(`${backendBaseURL}/groupMusic/isAuthentic`, {
             groupId: decodedGroupId,
             groupName: groupName,
             accessToken: Cookies.get('accessToken'),

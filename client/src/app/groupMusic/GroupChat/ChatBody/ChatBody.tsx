@@ -10,6 +10,7 @@ import { decodeGroupId, formatDateString } from '@/app/utils';
 import { FormError } from '@/components/FormError/page';
 import { Loading } from '@/components/Loading/Loading';
 import Image from "next/image";
+import { backendBaseURL } from '@/backendBaseURL';
 
 import styles from './ChatBody.module.css';
 
@@ -74,7 +75,7 @@ const ChatBody = () => {
 
     const getOlderMessages = () => {
         setLoading(true);
-        axios.post('http://localhost:3001/chat/getMessages', {
+        axios.post(`${backendBaseURL}/chat/getMessages`, {
             accessToken: Cookies.get('accessToken'),
             groupId: decodeGroupId(encodedGroupId),
         })

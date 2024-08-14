@@ -7,11 +7,10 @@ import Image from 'next/image';
 import SongImage from '../../../../assets/SongImage.jpg';
 import axios from 'axios';
 import { decodeGroupId } from '@/app/utils';
+import { setTrackId } from '@/store/slices/applicationState';
+import { backendBaseURL } from '@/backendBaseURL';
 
 import styles from './RightMusicControl.module.css'
-import { setTrackId } from '@/store/slices/applicationState';
-import { Loading } from '@/components/Loading/Loading';
-import { FormError } from '@/components/FormError/page';
 
 export const RightMusicControl = () => {
   const colorMode = useSelector((state: RootState) => state.applicationState.theme);
@@ -25,8 +24,10 @@ export const RightMusicControl = () => {
     dispatch(setTrackId(data.message.trackId));
   }
 
+  console.log(backendBaseURL);
+
   useEffect(() => {
-    axios.post('http://localhost:3001/groupMusic/currentSong/getSong', {
+    axios.post(`${backendBaseURL}/groupMusic/currentSong/getSong`, {
       groupId: deodedGroupId,
       accessToken: Cookies.get('accessToken'),
     })

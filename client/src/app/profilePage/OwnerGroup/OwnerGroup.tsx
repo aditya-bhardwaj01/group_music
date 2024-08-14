@@ -8,6 +8,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Loading } from '@/components/Loading/Loading';
 import NoGroup from '../NoGroup/NoGroup';
+import { backendBaseURL } from '@/backendBaseURL';
 
 import styles from './OwnerGroup.module.css'
 
@@ -30,7 +31,7 @@ const OwnerGroup = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.post('http://localhost:3001/listGroups/owner', {
+    axios.post(`${backendBaseURL}/listGroups/owner`, {
       accessToken: Cookies.get('accessToken')
     })
       .then((response) => {

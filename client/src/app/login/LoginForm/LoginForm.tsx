@@ -8,6 +8,7 @@ import ShowPassword from '../../../assets/showPassword.png';
 import HidePassword from '../../../assets/hidePassword.png';
 import styles from './LoginForm.module.css'
 import { FormError } from '@/components/FormError/page';
+import { backendBaseURL } from '@/backendBaseURL';
 
 type LoginForProps = {
     setLoginAction: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,7 +38,7 @@ export const LoginForm: React.FC<LoginForProps> = ({ setLoginAction }) => {
     }, []);
 
     const validateUser = (email: string, password: string) => {
-        axios.post('http://localhost:3001/users/login', {
+        axios.post(`${backendBaseURL}/users/login`, {
             email: email,
             password: password
         })

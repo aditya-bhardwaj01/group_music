@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FormError } from '@/components/FormError/page';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
+import { backendBaseURL } from '@/backendBaseURL';
 
 import Loading from '../../../assets/loading.gif';
 import CopyIcon from '../../../assets/copyIcon.png';
@@ -44,7 +45,7 @@ export const CreateForm = () => {
 
     const createGroup = () => {
         setLoading(true);
-        axios.post('http://localhost:3001/groupManagement/create', {
+        axios.post(`${backendBaseURL}/groupManagement/create`, {
             groupName: groupName.trim(),
             displayName: name.trim(),
             accessToken: Cookies.get('accessToken')

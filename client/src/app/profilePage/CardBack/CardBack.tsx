@@ -9,9 +9,10 @@ import moveToTop from '../../../assets/moveToTop.png';
 import moveToBottom from '../../../assets/moveToBottom.png';
 import CopyIcon from '../../../assets/copyIcon.png';
 import { useRouter } from 'next/navigation';
+import { backendBaseURL } from '@/backendBaseURL';
+import { encodeGroupId } from '@/app/utils';
 
 import styles from './CardBack.module.css'
-import { encodeGroupId } from '@/app/utils';
 
 interface CardProps {
   dateCreated: string;
@@ -84,7 +85,7 @@ const CardBack: React.FC<CardBackProps> = ({ groupData, setShowFront }) => {
 
   useEffect(() => {
     setLoading(true);
-    axios.post('http://localhost:3001/listGroups/singleGroup', {
+    axios.post(`${backendBaseURL}/listGroups/singleGroup`, {
       groupId: groupData.id,
       accessToken: Cookies.get('accessToken'),
     })

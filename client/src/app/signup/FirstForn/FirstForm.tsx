@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { FormError } from '@/components/FormError/page';
+import { backendBaseURL } from '@/backendBaseURL';
 
 import styles from './FirstForm.module.css'
 
@@ -41,7 +42,7 @@ export const FirstForm: React.FC<FirstFormProp> = ({ setActiveSection, setEmail,
 
     const checkForUniqueEmail = async (email: string, name: string) => {
         setSending(true);
-        axios.post('http://localhost:3001/users/verifyEmail', {
+        axios.post(`${backendBaseURL}/users/verifyEmail`, {
             email: email
         })
         .then((response) => {
@@ -72,7 +73,7 @@ export const FirstForm: React.FC<FirstFormProp> = ({ setActiveSection, setEmail,
     }
 
     const finalOtpSend = (email: string, name: string) => {
-        axios.post('http://localhost:3001/users/verifyOtp/send', {
+        axios.post(`${backendBaseURL}/users/verifyOtp/send`, {
             process: 'signup',
             email: email
         })

@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './OTPVerification.module.css'
 import axios from 'axios'
 import { FormError } from '@/components/FormError/page';
+import { backendBaseURL } from '@/backendBaseURL';
 
 type OTPVerificationProp = {
     setActiveSection: React.Dispatch<React.SetStateAction<number>>;
@@ -23,7 +24,7 @@ export const OTPVerification: React.FC<OTPVerificationProp> = ({ setActiveSectio
         const userOTP = userInp.value;
 
         setSending(true);
-        axios.post('http://localhost:3001/users/verifyOtp/verify', {
+        axios.post(`${backendBaseURL}/users/verifyOtp/verify`, {
             email: email,
             otp: userOTP
         })

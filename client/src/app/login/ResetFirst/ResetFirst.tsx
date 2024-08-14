@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './ResetFirst.module.css'
 import axios from 'axios';
 import { FormError } from '@/components/FormError/page';
+import { backendBaseURL } from '@/backendBaseURL';
 
 type ResetFirstProp = {
   setLoginAction: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,7 +44,7 @@ const ResetFirst: React.FC<ResetFirstProp> = ({ setLoginAction, setEmail, setAct
       setErrorMsg('');
     }
 
-    axios.post('http://localhost:3001/users/verifyEmail', {
+    axios.post(`${backendBaseURL}/users/verifyEmail`, {
       email: email
     })
       .then((response) => {
@@ -74,7 +75,7 @@ const ResetFirst: React.FC<ResetFirstProp> = ({ setLoginAction, setEmail, setAct
   }
 
   const sendOtp = (email: string) => {
-    axios.post('http://localhost:3001/users/verifyOtp/send', {
+    axios.post(`${backendBaseURL}/users/verifyOtp/send`, {
       process: 'login',
       email: email
     })
