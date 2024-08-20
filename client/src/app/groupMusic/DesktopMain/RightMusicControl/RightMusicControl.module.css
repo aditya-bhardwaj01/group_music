@@ -35,10 +35,18 @@
 }
 
 .songDetailDark > div:first-child {
+    max-width: 180px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
     color: white;
 }
 
 .songDetailDark > div:nth-child(2) {
+    max-width: 180px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
     color: #5d5e62;
     font-size: 12px;
 }
@@ -52,42 +60,8 @@
     font-size: 12px;
 }
 
-.songProgress{
-    width: 55%;
-    height: 6px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-}
-
-.timeLight1{
-    color: black;
-}
-
-.timeDark1{
-    color: white;
-}
-
-.timeLight2{
-    color: #616161;
-}
-
-.timeDark2{
-    color: #5d5e62;
-}
-
-.songCompleted{
-    border: solid #1FDF64;
-    background-color: #1FDF64;
-    border-radius: 10px;
-}
-
-.songRemaining{
-    border-radius: 0 10px 10px 0;
-    border: solid gray;
-    background-color: gray;
+.musicProgress {
+    width: 45%;
 }
 
 @media only screen and (width<1361px) {

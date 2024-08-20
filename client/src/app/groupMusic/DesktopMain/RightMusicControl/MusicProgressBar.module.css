@@ -1,0 +1,125 @@
+.songProgress{
+    width: 100%;
+    height: 6px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.songProgress input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    background: linear-gradient(
+      to right, 
+      #1FDF64 0%, 
+      #1FDF64 var(--progress), 
+      #ddd var(--progress), 
+      #ddd 100%
+    );
+  }
+  
+  .songProgress input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 5px;
+  }
+  
+  .songProgress input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #1FDF64;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -4px;
+  }
+  
+  .songProgress input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 5px;
+  }
+  
+  .songProgress input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #1FDF64;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .songProgress input[type="range"]::-ms-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  
+  .songProgress input[type="range"]::-ms-fill-lower {
+    background: #1FDF64;
+    border-radius: 5px;
+  }
+  
+  .songProgress input[type="range"]::-ms-fill-upper {
+    background: #ddd;
+    border-radius: 5px;
+  }
+  
+  .songProgress input[type="range"]::-ms-thumb {
+    width: 16px;
+    height: 16px;
+    background: #1FDF64;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 0;
+  }
+  
+  .songProgress input[type="range"]:focus::-ms-fill-lower {
+    background: #1FDF64;
+  }
+  
+  .songProgress input[type="range"]:focus::-ms-fill-upper {
+    background: #ddd;
+  }
+  
+
+.timeLight1{
+    color: black;
+}
+
+.timeDark1{
+    color: white;
+}
+
+.timeLight2{
+    color: #616161;
+}
+
+.timeDark2{
+    color: #5d5e62;
+}
+
+.songCompleted{
+    border: solid #1FDF64;
+    background-color: #1FDF64;
+    border-radius: 10px;
+}
+
+.songRemaining{
+    border-radius: 0 10px 10px 0;
+    border: solid gray;
+    background-color: gray;
+}

@@ -4,7 +4,7 @@ import socket from '../../../../socket';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
-import SongImage from '../../../../assets/SongImage.jpg';
+import SongImage from '../../../../assets/DefaultCardImg.jpg';
 import axios from 'axios';
 import { decodeGroupId } from '@/app/utils';
 import { setTrackId } from '@/store/slices/applicationState';
@@ -12,10 +12,18 @@ import { backendBaseURL } from '@/backendBaseURL';
 import getToken from '../../apiCalls/getToken';
 import getAuthHeader from '../../apiCalls/getAuthHeader';
 import getSingleTrack from '../../apiCalls/getSingleTrack';
+import { MusicProgressBar } from './MusicProgressBar';
 
 import styles from './RightMusicControl.module.css';
 
 export const RightMusicControl = () => {
+  const [songDetails, setSongDetails] = useState({
+    songImage: SongImage,
+    songName: '---',
+    artists: [],
+    duration: 0,
+    audio: '',
+  });
   const colorMode = useSelector((state: RootState) => state.applicationState.theme);
   const dispatch = useDispatch();
   const currentTrackId = useSelector((state: RootState) => state.applicationState.currentTrackId);
@@ -25,18 +33,19 @@ export const RightMusicControl = () => {
 
   const updateCurrentMusic = (data: any) => {
     dispatch(setTrackId(data.message.trackId));
-    handleCurrentTrack(data.message.trackId, false);
   }
 
-  const handleCurrentTrack = async (trackId: string, reload: boolean) => {
-    if(!trackId || trackId === '') return;
+  const handleCurrentTrack = async (trackId: string) => {
+    if (!trackId || trackId === '') return;
     const accessToken = await getToken();
     const authHeader = getAuthHeader(accessToken);
     const results = await getSingleTrack(authHeader, trackId);
-
+    setSongDetails({
+      songImage: results.album.images[0].url, songName: results.name,
+      artists: results.album.artists, duration: 10, audio: results.preview_url
+    });
     const songName = results.name ? results.name : null;
     const songImage = results.album?.images.length ? results.album.images[0].url : null;
-    if(reload) return;
 
     axios.post(`${backendBaseURL}/groupMusic/currentSong/setSong`, {
       accessToken: Cookies.get('accessToken'),
@@ -44,7 +53,7 @@ export const RightMusicControl = () => {
       songName: songName,
       songImage: songImage,
     })
-      .then((response) => {
+      .then(() => {
         setErrorMsg("");
       })
       .catch((error) => {
@@ -70,7 +79,7 @@ export const RightMusicControl = () => {
     })
       .then((response) => {
         setErrorMsg("");
-        handleCurrentTrack(response.data[0].musicId, true);
+        handleCurrentTrack(response.data[0].musicId);
       })
       .catch((error) => {
         if (error.response) {
@@ -95,38 +104,29 @@ export const RightMusicControl = () => {
   }, []);
 
   useEffect(() => {
-    handleCurrentTrack(currentTrackId, false);
+    handleCurrentTrack(currentTrackId);
   }, [currentTrackId]);
-
-  const getSongCompleted = (): number => {
-    return 40;
-  }
 
   return (
     <div className={`${styles.RightMusicControl} ${colorMode ? styles.lightModeMain : styles.darkModeMain}`}>
       <div className={styles.songImage}>
-        <Image src={SongImage} alt='Song Image' />
+        <Image src={songDetails.songImage} alt='Song Image' width={40} height={45} />
         <div className={`${colorMode === 1 ? styles.songDetailLight : styles.songDetailDark}`}>
-          <div>On my way</div>
-          <div>Alan Walker</div>
+          <div>{songDetails.songName}</div>
+          <div>
+            {songDetails.artists.map((artistName: any, index) => {
+              return <span key={`${artistName}#${index}`}>
+                {artistName.name}
+                {index !== songDetails.artists.length - 1 ? ', ' : null}
+              </span>;
+            })}
+          </div>
         </div>
       </div>
-
-      <div className={styles.songProgress}>
-        <div className={`${colorMode === 1 ? styles.timeLight1 : styles.timeDark1}`} style={{ marginRight: '5px', fontWeight: 'bold' }}>
-          2:36
-        </div>
-        <div className={styles.songCompleted} style={{ width: `${getSongCompleted()}%` }}></div>
-        <div className={styles.songRemaining} style={{ width: `${(100 - getSongCompleted())}%` }}></div>
-        <div className={`${colorMode === 1 ? styles.timeLight2 : styles.timeDark2}`} style={{ marginLeft: '5px', fontWeight: 'bold' }}>
-          5:20
-        </div>
+      
+      <div className={styles.musicProgress}>
+        <MusicProgressBar audio={songDetails.audio} />
       </div>
     </div>
   )
 }
-
-
-// database update for groupsdatadone
-// need to add a new column of currentSongStatus in groupsSongDetails table to see if the song is playing
-// start playing the song on the frontend
