@@ -1,7 +1,7 @@
 const db = require('../../database/Connection');
 
 const inactiveOwner = (groupId, userId) => {
-    const query = "UPDATE groupsData SET status=? WHERE id=? AND ownerId=?";
+    const query = "UPDATE groupsdata SET status=? WHERE id=? AND ownerId=?";
     const values = [0, groupId, userId];
     return new Promise((resolve, reject) => {
         db.query(query, values,

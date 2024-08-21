@@ -6,7 +6,7 @@ const ACCESSTOKEN = process.env.ACCESSTOKEN
 
 // Check if the user is a member of that group
 const isMember = (userId, groupName, groupId) => {
-    const query = "select count(*) as count from members a inner join groupsData b on a.userId = ? and a.groupId = b.id and b.groupName = ? and b.id=?";
+    const query = "select count(*) as count from members a inner join groupsdata b on a.userId = ? and a.groupId = b.id and b.groupName = ? and b.id=?";
     const values = [userId, groupName, groupId];
     return new Promise((resolve, reject) => {
         db.query(query, values,
@@ -23,7 +23,7 @@ const isMember = (userId, groupName, groupId) => {
 
 // Check if the user is the owner of that group
 const isOwner = (userId, groupName, groupId) => {
-    const query = "select count(*) as count from groupsData where ownerId=? and groupName=? and id=?";
+    const query = "select count(*) as count from groupsdata where ownerId=? and groupName=? and id=?";
     const values = [userId, groupName, groupId];
     return new Promise((resolve, reject) => {
         db.query(query, values,
@@ -40,9 +40,9 @@ const isOwner = (userId, groupName, groupId) => {
 
 // Get the display name of the user if he belongs to the group in any manner.
 const getDisplayName = (type, userId, groupName, groupId) => {
-    let query = "select a.displayName as displayName from members a inner join groupsData b on a.userId=? and a.groupId = b.id and b.groupName=? and b.id=?";
+    let query = "select a.displayName as displayName from members a inner join groupsdata b on a.userId=? and a.groupId = b.id and b.groupName=? and b.id=?";
     if(type === 'owner') {
-        query = "select displayName from groupsData where ownerId=? and groupName=? and id=?";
+        query = "select displayName from groupsdata where ownerId=? and groupName=? and id=?";
     }
     const values = [userId, groupName, groupId];
     return new Promise((resolve, reject) => {
@@ -62,7 +62,7 @@ const getDisplayName = (type, userId, groupName, groupId) => {
 const setUserActive = (type, userId, groupId) => {
     let query = "UPDATE members SET status=? WHERE userId=? and groupId=?";
     if(type === 'owner') {
-        query = "UPDATE groupsData SET status=? WHERE ownerId=? and id=?"
+        query = "UPDATE groupsdata SET status=? WHERE ownerId=? and id=?"
     }
     const values = [1, userId, groupId];
     return new Promise((resolve, reject) => {

@@ -5,7 +5,7 @@ const db = require('../../database/Connection')
 const ACCESSTOKEN = process.env.ACCESSTOKEN
 
 const fetchGroupData = (userId) => {
-    const query = "select a.* from groupsData a inner join members b where a.id = b.groupId and b.userId=?";
+    const query = "select a.* from groupsdata a inner join members b where a.id = b.groupId and b.userId=?";
     const values = [userId];
     return new Promise((resolve, reject) => {
         db.query(query, values,
