@@ -1,12 +1,56 @@
 version: "3.8"
+
 services:
-  frontend:
-    build: ./client
+  mysql:
+    image: mysql:latest
+    container_name: group_music_database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: group_music
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./group_music.sql:/docker-entrypoint-initdb.d/group_music.sql
     ports:
-      - 3000:3000
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+  
   backend:
-    build: ./backend
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: group_music_server
+    restart: always
+    environment:
+      MYSQL_HOST: group_music_database
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: group_music
+    volumes:
+      - ./server:/server
+      - /server/node_modules
     ports:
-      - 3001:3001
-  database:
-    image: mysql
+      - "3001:3001"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: group_music_client
+    volumes:
+      - ./client:/client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://group_music_backend:3001
+
+volumes:
+  db_data:
