@@ -10,6 +10,7 @@ module.exports = (socket, io) => {
 
     // playing music related communications
     require('./playMusic')(socket, io, groupSocketIds);
+    require('./musicPlayStatusChanged')(socket, io, groupSocketIds);
 
     require('./disconnect')(socket, io, groupSocketIds);
 };

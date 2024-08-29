@@ -10,7 +10,7 @@ import calculateDuration from '../../commonFunctions/CalculateDuration';
 import playMusic from '../../../../assets/playMusicBack.png';
 import defaultImg from '../../../../assets/DefaultCardImg.jpg';
 import { decodeGroupId } from '@/app/utils';
-import { setTrackId } from '@/store/slices/applicationState';
+import { setPlayMusic, setTrackId } from '@/store/slices/applicationState';
 
 import styles from './SearchTrack.module.css'
 
@@ -51,6 +51,7 @@ const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
             groupId: decodedGroupId,
         })
         dispatch(setTrackId(trackId));
+        dispatch(setPlayMusic(true));
     }
 
     return (

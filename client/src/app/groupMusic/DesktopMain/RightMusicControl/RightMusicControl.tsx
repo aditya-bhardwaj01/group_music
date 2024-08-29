@@ -7,7 +7,7 @@ import Image from 'next/image';
 import SongImage from '../../../../assets/DefaultCardImg.jpg';
 import axios from 'axios';
 import { decodeGroupId } from '@/app/utils';
-import { setTrackId } from '@/store/slices/applicationState';
+import { setMusicDisabled, setPlayMusic, setTrackId } from '@/store/slices/applicationState';
 import { backendBaseURL } from '@/backendBaseURL';
 import getToken from '../../apiCalls/getToken';
 import getAuthHeader from '../../apiCalls/getAuthHeader';
@@ -32,14 +32,20 @@ export const RightMusicControl = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const updateCurrentMusic = (data: any) => {
+    dispatch(setPlayMusic(true));
     dispatch(setTrackId(data.message.trackId));
   }
 
   const handleCurrentTrack = async (trackId: string) => {
-    if (!trackId || trackId === '') return;
+    if (!trackId || trackId === '') {
+      dispatch(setMusicDisabled(true));
+      return;
+    }
     const accessToken = await getToken();
     const authHeader = getAuthHeader(accessToken);
     const results = await getSingleTrack(authHeader, trackId);
+    if(!results.preview_url) dispatch(setMusicDisabled(true));
+    else dispatch(setMusicDisabled(false));
     setSongDetails({
       songImage: results.album.images[0].url, songName: results.name,
       artists: results.album.artists, duration: 10, audio: results.preview_url
@@ -79,6 +85,8 @@ export const RightMusicControl = () => {
     })
       .then((response) => {
         setErrorMsg("");
+        // dispatch(setPlayMusic(response.data[0].playing));
+        dispatch(setTrackId(response.data[0].musicId));
         handleCurrentTrack(response.data[0].musicId);
       })
       .catch((error) => {
@@ -111,7 +119,7 @@ export const RightMusicControl = () => {
     <div className={`${styles.RightMusicControl} ${colorMode ? styles.lightModeMain : styles.darkModeMain}`}>
       <div className={styles.songImage}>
         <Image src={songDetails.songImage} alt='Song Image' width={40} height={45} />
-        <div className={`${colorMode === 1 ? styles.songDetailLight : styles.songDetailDark}`}>
+        <div className={`${styles.songDetail} ${colorMode === 1 ? styles.songDetailLight : styles.songDetailDark}`}>
           <div>{songDetails.songName}</div>
           <div>
             {songDetails.artists.map((artistName: any, index) => {

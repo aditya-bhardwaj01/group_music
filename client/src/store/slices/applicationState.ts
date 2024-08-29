@@ -11,6 +11,8 @@ const initialState = {
   encodedGroupId: '',
   displayName: '',
   currentTrackId: '',
+  playMusic: false,
+  musicDisabled: false,
 };
 
 export const applicationState = createSlice({
@@ -51,7 +53,15 @@ export const applicationState = createSlice({
 
     setTrackId: (state, action) => {
       state.currentTrackId = action.payload;
-    }
+    },
+
+    setPlayMusic: (state, action) => {
+      state.playMusic = action.payload;
+    },
+
+    setMusicDisabled: (state, action) => {
+      state.musicDisabled = action.payload;
+    },
   },
 });
 
@@ -65,6 +75,8 @@ export const {
               setGroupId,
               setDisplayName,
               setTrackId,
+              setPlayMusic,
+              setMusicDisabled,
              } = applicationState.actions
 
 export default applicationState.reducer;

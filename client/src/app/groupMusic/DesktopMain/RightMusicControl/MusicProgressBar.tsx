@@ -1,33 +1,37 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, CSSProperties } from 'react';
 import { RootState } from '@/store/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './MusicProgressBar.module.css';
+import { setPlayMusic } from '@/store/slices/applicationState';
 
 interface MusicProgressBarProps {
     audio: string;
 }
 
 export const MusicProgressBar: React.FC<MusicProgressBarProps> = ({ audio }) => {
+    const dispatch = useDispatch();
     const colorMode = useSelector((state: RootState) => state.applicationState.theme);
+    const musicPlayStatus = useSelector((state: RootState) => state.applicationState.playMusic);
     const audioRef = useRef<HTMLAudioElement>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const duration = useRef<number>(30);
     const [progress, setProgress] = useState(0);
 
-    const handlePlayPause = () => {
-        if (isPlaying) {
-            audioRef.current?.pause();
-        } else {
-            audioRef.current?.play();
-        }
-        setIsPlaying(!isPlaying);
-    };
+    useEffect(() => {
+        (musicPlayStatus && audio) ? audioRef.current?.play() : audioRef.current?.pause();
+    }, [musicPlayStatus, audio]);
 
     const handleTimeUpdate = () => {
         if (audioRef.current) {
             const current = audioRef.current.currentTime;
-            const duration = audioRef.current.duration;
-            setProgress((current / duration) * 100);
+            duration.current = audioRef.current.duration;
+            setCurrentTime(Math.round(current));
+            const progressValue = (current / duration.current) * 100;
+            setProgress(progressValue);
+            if(current === duration.current) {
+                dispatch(setPlayMusic(false));
+            }
         }
     };
 
@@ -40,42 +44,24 @@ export const MusicProgressBar: React.FC<MusicProgressBarProps> = ({ audio }) => 
         }
     };
 
-    const getSongCompleted = (): number => {
-        return 40;
-    }
+    const formatTimeSS = (time: number): string => {
+        return String(time).padStart(2, '0');
+    };
 
     return (
-        <div className={styles.MusicProgressBar}>
-            {/* <audio
-                ref={audioRef}
-                src={audio}
-                onTimeUpdate={handleTimeUpdate}
-            ></audio>
-
-            <button onClick={handlePlayPause}>
-                {isPlaying ? 'Pause' : 'Play'}
-            </button>
-
-            <input
-                type="range"
-                value={progress}
-                onChange={handleProgressChange}
-                style={{ width: '300px' }}
-            /> */}
-
+        <div className={styles.MusicProgressBar}
+        style={{
+            '--progress': `${progress}%`,
+        }} as CSSProperties>
             <div className={styles.songProgress}>
-                {/* <div className={`${colorMode === 1 ? styles.timeLight1 : styles.timeDark1}`} style={{ marginRight: '5px', fontWeight: 'bold' }}>
-                    00:13
-                </div> */}
+                <div className={`${colorMode === 1 ? styles.timeLight1 : styles.timeDark1}`} style={{ marginRight: '5px', fontWeight: 'bold' }}>
+                    00:{formatTimeSS(currentTime)}
+                </div>
                 <audio
                     ref={audioRef}
                     src={audio}
                     onTimeUpdate={handleTimeUpdate}
                 ></audio>
-
-                <button onClick={handlePlayPause}>
-                    {isPlaying ? 'Pause' : 'Play'}
-                </button>
 
                 <input
                     type="range"
@@ -84,12 +70,9 @@ export const MusicProgressBar: React.FC<MusicProgressBarProps> = ({ audio }) => 
                     style={{ width: '100%' }}
                 />
 
-                {/* <div className={styles.songCompleted} style={{ width: `${getSongCompleted()}%` }}></div>
-                <div className={styles.songRemaining} style={{ width: `${(100 - getSongCompleted())}%` }}></div> */}
-
-                {/* <div className={`${colorMode === 1 ? styles.timeLight2 : styles.timeDark2}`} style={{ marginLeft: '5px', fontWeight: 'bold' }}>
-                    00:30
-                </div> */}
+                <div className={`${colorMode === 1 ? styles.timeLight2 : styles.timeDark2}`} style={{ marginLeft: '5px', fontWeight: 'bold' }}>
+                    00:{!Math.round(duration.current) ? '00' : Math.round(duration.current)}
+                </div>
             </div>
         </div>
     );
@@ -97,4 +80,7 @@ export const MusicProgressBar: React.FC<MusicProgressBarProps> = ({ audio }) => 
 
 
 // complete the progress bar properly
-// synchronize the song across all the members of the group
+// after the song is over turn the pause button back to play button
+// when the user enters the group the song automatically starts playing. need to fix this
+// synchronize the play pause amongst all members
+// update the database with play or pause
