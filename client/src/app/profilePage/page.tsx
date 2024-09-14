@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { RootState } from '@/store/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import styles from './page.module.css';
 
@@ -13,8 +13,10 @@ import MenuItem from './MenuItem/MenuItem';
 import ProfileHome from './Home/ProfileHome';
 import OwnerGroup from './OwnerGroup/OwnerGroup';
 import MemberGroup from './MemberGroup/MemberGroup';
+import { setPlayMusic, setTrackId, setArtistId } from '@/store/slices/applicationState';
 
 const ProfilePage = () => {
+  const dispatch = useDispatch();
   const activeSection = useSelector((state: RootState) => state.applicationState.profilePageActive);
   const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
   const router = useRouter();
@@ -26,6 +28,9 @@ const ProfilePage = () => {
     Cookies.remove('accessToken');
     const expiresInOneMonth = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     if (retrievedAccessToken) Cookies.set('accessToken', retrievedAccessToken, { expires: expiresInOneMonth });
+
+    dispatch(setTrackId(''));
+    dispatch(setArtistId(''));
 
   }, []);
 

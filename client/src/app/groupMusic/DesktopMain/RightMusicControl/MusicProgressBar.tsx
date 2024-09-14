@@ -19,6 +19,11 @@ export const MusicProgressBar: React.FC<MusicProgressBarProps> = ({ audio }) => 
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
+        if(musicPlayStatus && audio) {
+            audioRef.current?.play();
+        } else {
+            audioRef.current?.pause();
+        }
         (musicPlayStatus && audio) ? audioRef.current?.play() : audioRef.current?.pause();
     }, [musicPlayStatus, audio]);
 
@@ -28,7 +33,7 @@ export const MusicProgressBar: React.FC<MusicProgressBarProps> = ({ audio }) => 
             duration.current = audioRef.current.duration;
             setCurrentTime(Math.round(current));
             const progressValue = (current / duration.current) * 100;
-            setProgress(progressValue);
+            setProgress(!Number.isNaN(progressValue) ? progressValue : 0);
             if(current === duration.current) {
                 dispatch(setPlayMusic(false));
             }
@@ -77,10 +82,3 @@ export const MusicProgressBar: React.FC<MusicProgressBarProps> = ({ audio }) => 
         </div>
     );
 };
-
-
-// complete the progress bar properly
-// after the song is over turn the pause button back to play button
-// when the user enters the group the song automatically starts playing. need to fix this
-// synchronize the play pause amongst all members
-// update the database with play or pause

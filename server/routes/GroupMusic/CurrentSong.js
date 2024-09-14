@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../../database/Connection')
 
 const getCurrentSong = (groupId) => {
-    const query = "SELECT musicId FROM groupmusicdetails WHERE groupId=?";
+    const query = "SELECT musicId, artistId, playing FROM groupmusicdetails WHERE groupId=?";
     const values = [groupId];
     return new Promise((resolve, reject) => {
         db.query(query, values,

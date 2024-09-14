@@ -38,7 +38,7 @@ const MemberGroup = () => {
         const updatedGroups = response.data.map((group: GroupSingle) => ({
           ...group,
           songImage: group.songImage || DefaultImage,
-          songName: group.songName || 'Play you first song'
+          songName: group.songName || 'Play your first song'
         }));
         setGroups(updatedGroups);
         setOriginalGroupData(updatedGroups);

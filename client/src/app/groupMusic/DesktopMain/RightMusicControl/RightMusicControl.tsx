@@ -7,7 +7,7 @@ import Image from 'next/image';
 import SongImage from '../../../../assets/DefaultCardImg.jpg';
 import axios from 'axios';
 import { decodeGroupId } from '@/app/utils';
-import { setMusicDisabled, setPlayMusic, setTrackId } from '@/store/slices/applicationState';
+import { setArtistId, setMusicDisabled, setPlayMusic, setTrackId } from '@/store/slices/applicationState';
 import { backendBaseURL } from '@/backendBaseURL';
 import getToken from '../../apiCalls/getToken';
 import getAuthHeader from '../../apiCalls/getAuthHeader';
@@ -15,6 +15,7 @@ import getSingleTrack from '../../apiCalls/getSingleTrack';
 import { MusicProgressBar } from './MusicProgressBar';
 
 import styles from './RightMusicControl.module.css';
+import { LeftMusicControl } from '../LeftMusicControl/LeftMusicControl';
 
 export const RightMusicControl = () => {
   const [songDetails, setSongDetails] = useState({
@@ -50,6 +51,7 @@ export const RightMusicControl = () => {
       songImage: results.album.images[0].url, songName: results.name,
       artists: results.album.artists, duration: 10, audio: results.preview_url
     });
+    dispatch(setArtistId(results.album.artists[0].id));
     const songName = results.name ? results.name : null;
     const songImage = results.album?.images.length ? results.album.images[0].url : null;
 
@@ -85,8 +87,9 @@ export const RightMusicControl = () => {
     })
       .then((response) => {
         setErrorMsg("");
-        // dispatch(setPlayMusic(response.data[0].playing));
+        dispatch(setPlayMusic(response.data[0].playing));
         dispatch(setTrackId(response.data[0].musicId));
+        dispatch(setArtistId(response.data[0].artistId));
         handleCurrentTrack(response.data[0].musicId);
       })
       .catch((error) => {

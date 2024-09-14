@@ -57,7 +57,7 @@ const CardFront: React.FC<CardFrontProps> = ({ groupData, setShowFront }) => {
             <div className={`${styles.imageText} ${!isDesktop && styles.imageTextPhone}`}>
                 <h5>{groupData.groupName}</h5>
                 <p>
-                    {groupData.songName !== "Play you first song" && 
+                    {groupData.songName !== "Play your first song" && 
                     <Image src={PlayMusic} height={20} width={20} alt='Play Music' style={{borderRadius: 0}} />} &nbsp;
                     <i>{groupData.songName}</i>
                 </p>

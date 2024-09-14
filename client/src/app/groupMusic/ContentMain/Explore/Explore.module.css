@@ -1,0 +1,34 @@
+.Explore {
+    /* border: solid green; */
+    height: 81.3vh;
+}
+
+.exploreSection {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* border: solid red; */
+}
+
+.sectionLeft {
+    overflow-y: hidden;
+    height: 39.5vh;
+    flex: 1;
+}
+
+.sectionRight {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sectionName {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.sectionItems {
+    overflow-y: scroll;
+    height: 100%;
+    padding: 5px 5px 20px 5px;
+}

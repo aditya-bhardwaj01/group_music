@@ -16,7 +16,6 @@ interface SearchPlaylistProps {
 
 const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ searchedText }) => {
     const [searchResults, setSearchResults] = useState<any>([]);
-    const [showPlayBtn, setShowPlayBtn] = useState(-1);
     const colorMode = useSelector((state: RootState) => state.applicationState.theme);
 
     useEffect(() => {
@@ -38,14 +37,17 @@ const SearchPlaylist: React.FC<SearchPlaylistProps> = ({ searchedText }) => {
         setSearchResults(results);
     }
 
+    const takeToSpotify = (url: string) => {
+        window.open(url, '_blank');
+    }
+
     return (
         <div className={`${styles.SearchPlaylist} ${colorMode === 1 ? styles.SearchPlaylistLight : styles.SearchPlaylistDark}`}>
             {searchResults && searchResults.map((item: any, index: number) => (
-                <div className={styles.playlistSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}>
+                <div className={styles.playlistSingle} key={item.id} onClick={() => takeToSpotify(item.external_urls.spotify)}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
-                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.images.length === 0 ? defaultImg : item.images[0].url} width={40} height={40} alt="Playlist Image" />
-                            {showPlayBtn === index && <Image src={playMusic} width={10} height={10} alt="Play" />}
+                            <Image src={item.images.length === 0 ? defaultImg : item.images[0].url} width={40} height={40} alt="Playlist Image" />
                         </div>
                     </div>
                     <div className={styles.rightSection}>

@@ -1,3 +1,5 @@
+import socket from '@/socket';
+
 export const encodeGroupId = (groupId: string) => {
     return btoa(groupId); 
 };
@@ -40,4 +42,12 @@ export const formatDateString = (dateString: string): string => {
     const strHours = hours.toString().padStart(2, '0');
 
     return `${day}-${month}-${year} ${strHours}:${minutes} ${ampm}`;  
+}
+
+export const playMusicEmitter = (trackId: string, artistId: string, decodedGroupId: string) => {
+    socket.emit('playMusic', {
+        trackId: trackId,
+        artistId: artistId,
+        groupId: decodedGroupId,
+    });
 }

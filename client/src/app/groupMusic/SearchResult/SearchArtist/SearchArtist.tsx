@@ -18,7 +18,6 @@ interface SearchArtistProps {
 const SearchArtist: React.FC<SearchArtistProps> = ({ searchedText }) => {
     const [searchResults, setSearchResults] = useState<any>([]);
     const colorMode = useSelector((state: RootState) => state.applicationState.theme);
-    const [showPlayBtn, setShowPlayBtn] = useState(-1);
 
     useEffect(() => {
         makeApiCalls(searchedText);
@@ -38,17 +37,19 @@ const SearchArtist: React.FC<SearchArtistProps> = ({ searchedText }) => {
         const results = await searchForResults(authHeader, text, 'artist');
         setSearchResults(results);
     }
+
+    const takeToSpotify = (url: string) => {
+        window.open(url, '_blank');
+    }
     
     return (
         <div className={`${styles.SearchArtist} ${colorMode === 1 ? styles.SearchArtistLight : styles.SearchArtistDark}`}>
             {searchResults && searchResults.map((item: any, index: number) => (
-                <div className={styles.artistSingle} key={item.id} 
-                onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)}
+                <div className={styles.artistSingle} key={item.id} onClick={() => takeToSpotify(item.external_urls.spotify)}
                 >
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
-                            <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.images.length === 0 ? defaultImg : item.images[0].url} width={40} height={40} alt="Artist Image" />
-                            {showPlayBtn === index && <Image src={playMusic} width={10} height={10} alt="Play" />}
+                            <Image src={item.images.length === 0 ? defaultImg : item.images[0].url} width={40} height={40} alt="Artist Image" />
                         </div>
                     </div>
                     <div className={styles.rightSection}>

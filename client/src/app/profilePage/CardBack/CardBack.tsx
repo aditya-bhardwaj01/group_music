@@ -181,7 +181,7 @@ const CardBack: React.FC<CardBackProps> = ({ groupData, setShowFront }) => {
               <div className={styles.groupNameDate}>
                 <div>{groupData.groupName}</div>
                 <div>
-                  {groupData.songName !== "Play you first song" &&
+                  {groupData.songName !== "Play your first song" &&
                     <Image src={playMusic} height={16} width={16} alt='Song-played' />}
                   <span style={{ padding: '0 3px' }}>{groupData.songName}</span>
                 </div>

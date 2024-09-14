@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import socket from '../../../../socket';
 import { RootState } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import getToken from '../../apiCalls/getToken';
@@ -11,6 +10,7 @@ import playMusic from '../../../../assets/playMusicBack.png';
 import defaultImg from '../../../../assets/DefaultCardImg.jpg';
 import { decodeGroupId } from '@/app/utils';
 import { setPlayMusic, setTrackId } from '@/store/slices/applicationState';
+import { playMusicEmitter } from '../../../../app/utils';
 
 import styles from './SearchTrack.module.css'
 
@@ -45,11 +45,8 @@ const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
         setSearchResults(results);
     }
 
-    const playMusicEmitter = (trackId: string) => {
-        socket.emit('playMusic', {
-            trackId: trackId,
-            groupId: decodedGroupId,
-        })
+    const callPlayMusic = (trackId: string, artistId: string) => {
+        playMusicEmitter(trackId, artistId, decodedGroupId);
         dispatch(setTrackId(trackId));
         dispatch(setPlayMusic(true));
     }
@@ -57,7 +54,7 @@ const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
     return (
         <div className={`${styles.SearchTrack} ${colorMode === 1 ? styles.SearchTrackLight : styles.SearchTrackDark}`}>
             {searchResults && searchResults.map((item: any, index: number) => (
-                <div className={styles.trackSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)} onClick={() => playMusicEmitter(item.id)}>
+                <div className={styles.trackSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)} onClick={() => callPlayMusic(item.id, item.artists[0].id)}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
                             <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.album.images.length === 0 ? defaultImg : item.album.images[0].url} width={40} height={40} alt="Song Image" />

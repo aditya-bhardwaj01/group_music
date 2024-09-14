@@ -19,17 +19,6 @@
     border-radius: 6px;
 }
 
-.blurImg {
-    filter: brightness(45%);
-}
-
-.imageContainer img:nth-child(2) {
-    position: absolute;
-    top: 54%;
-    left: 43%;
-    transform: translateY(-50%);
-}
-
 .rightSection {
     margin-left: 10px;
     padding: 0 10px;

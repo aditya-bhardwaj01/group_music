@@ -3,6 +3,8 @@ import { RootState } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlayMusic } from '@/store/slices/applicationState';
 import Image from 'next/image';
+import socket from '@/socket';
+import { decodeGroupId } from '@/app/utils';
 import prevDisabled from '../../../../assets/musicPage/bottomMusicControl/prevDisabled.png';
 import playDark from '../../../../assets/musicPage/bottomMusicControl/playDark.png';
 import playLight from '../../../../assets/musicPage/bottomMusicControl/playLight.png';
@@ -10,8 +12,6 @@ import playMusicDisabled from '../../../../assets/musicPage/bottomMusicControl/p
 import pauseDark from '../../../../assets/musicPage/bottomMusicControl/pauseDark.png';
 import pauseLight from '../../../../assets/musicPage/bottomMusicControl/pauseLight.png';
 import nextDisabled from '../../../../assets/musicPage/bottomMusicControl/nextDisabled.png';
-import socket from '@/socket';
-import { decodeGroupId } from '@/app/utils';
 
 import styles from './LeftMusicControl.module.css'
 
@@ -25,20 +25,16 @@ export const LeftMusicControl = () => {
 
   const setMusicPlayStatus = () => {
     if (isMusicDisabled) return;
+    socket.emit('changeMusicPlayStatus', {
+      isMusicPlaying: !musicPlayStatus,
+      groupId: decodedGroupId,
+    });
     dispatch(setPlayMusic(!musicPlayStatus));
   }
 
   const handleMusicPlayStatusChanged = (message: any) => {
-    // console.log(message.message.isMusicPlaying);
     dispatch(setPlayMusic(message.message.isMusicPlaying))
   }
-
-  useEffect(() => {
-    socket.emit('changeMusicPlayStatus', {
-      isMusicPlaying: musicPlayStatus,
-      groupId: decodedGroupId,
-    });
-  }, [musicPlayStatus]);
 
   useEffect(() => {
     socket.on('musicPlayStatusChanged', handleMusicPlayStatusChanged);

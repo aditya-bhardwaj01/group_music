@@ -1,5 +1,5 @@
 "use client"; 
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   theme: 0,
@@ -11,6 +11,7 @@ const initialState = {
   encodedGroupId: '',
   displayName: '',
   currentTrackId: '',
+  currentArtistId: '',
   playMusic: false,
   musicDisabled: false,
 };
@@ -55,6 +56,10 @@ export const applicationState = createSlice({
       state.currentTrackId = action.payload;
     },
 
+    setArtistId: (state, action) => {
+      state.currentArtistId = action.payload;
+    },
+
     setPlayMusic: (state, action) => {
       state.playMusic = action.payload;
     },
@@ -75,6 +80,7 @@ export const {
               setGroupId,
               setDisplayName,
               setTrackId,
+              setArtistId,
               setPlayMusic,
               setMusicDisabled,
              } = applicationState.actions
