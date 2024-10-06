@@ -78,16 +78,20 @@
 
 .timeLight1{
     color: black;
+    font-size: 14px;
 }
 
 .timeDark1{
     color: white;
+    font-size: 14px;
 }
 
 .timeLight2{
     color: #616161;
+    font-size: 14px;
 }
 
 .timeDark2{
     color: #5d5e62;
+    font-size: 14px;
 }

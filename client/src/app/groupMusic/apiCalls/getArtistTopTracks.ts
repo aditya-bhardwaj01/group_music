@@ -2,11 +2,12 @@ type AuthHeader = {
     Authorization: string;
 };
 
-const getExploreArtists = async (headers: AuthHeader, artistId: string): Promise<any | null> => {
-    let url = `https://api.spotify.com/v1/artists/${artistId}/related-artists`;
-    // if (artistId && artistId != '') {
-    //     url = '';
-    // }
+const getArtistTopTracks = async (headers: AuthHeader, artistId: string): Promise<any | null> => {
+    if(artistId === '' || !artistId) {
+        return;
+    }
+
+    let url = `https://api.spotify.com/v1/artists/${artistId}/top-tracks`;
 
     const response = await fetch(url, {
         method: 'GET',
@@ -21,4 +22,4 @@ const getExploreArtists = async (headers: AuthHeader, artistId: string): Promise
     return jsonResult;
 }
 
-export default getExploreArtists
+export default getArtistTopTracks;

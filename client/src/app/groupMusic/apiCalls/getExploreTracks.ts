@@ -2,10 +2,13 @@ type AuthHeader = {
     Authorization: string;
 };
 
-const getExploreTracks = async (headers: AuthHeader, trackId: string, artistId: string): Promise<any | null> => {
-    let url = '';
-    if (trackId && trackId != '') {
-        url = `https://api.spotify.com/v1/recommendations?seed_artists=${artistId}&seed_tracks=${trackId}`;
+const getExploreTracks = async (headers: AuthHeader, trackId: string, artistId: string | null, genres: string | null): Promise<any | null> => {
+    if(!artistId && !genres) {
+        return;
+    }
+    let url = `https://api.spotify.com/v1/recommendations?seed_artists=${artistId}&seed_tracks=${trackId}`;
+    if (genres) {
+        url = `https://api.spotify.com/v1/recommendations?seed_genres=${genres}y&seed_tracks=${trackId}`;
     }
 
     const response = await fetch(url, {

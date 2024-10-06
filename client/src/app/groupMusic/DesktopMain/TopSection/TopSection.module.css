@@ -1,36 +1,43 @@
-.TopSection{
+.TopSection {
     position: fixed;
     top: 0;
-    width: 100%;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    width: 84%;
+    width: 100%;
 }
 
-.TopSectionLight{
+.TopSectionLight {
     background-color: #F1F2ED;
     color: black;
 }
 
-.TopSectionDark{
+.TopSectionDark {
     background-color: #1a1c22;
     color: white;
 }
 
-.toggleModeLight, .toggleModeDark {
+.rightSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggleModeLight,
+.toggleModeDark {
     background-color: transparent;
     border: none;
 }
 
-.toggleModeLight img{
+.toggleModeLight img {
     height: 25px;
     width: 25px;
 }
 
-.toggleModeDark img{
+.toggleModeDark img {
     height: 38px;
     width: 31px;
 }
@@ -45,21 +52,21 @@
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    border: 1px solid rgb(255,0,0);
+    border: 1px solid rgb(255, 0, 0);
     border-radius: 7px;
     outline: none;
     overflow: hidden;
-    color: rgb(255,0,0);
+    color: rgb(255, 0, 0);
     transition: color 0.3s 0.1s ease-out;
     text-align: center;
     margin-left: 12px;
-  }
-  
-  .logoutBtn span {
+}
+
+.logoutBtn span {
     margin: 3px;
-  }
-  
-  .logoutBtn::before {
+}
+
+.logoutBtn::before {
     position: absolute;
     top: 0;
     left: 0;
@@ -75,25 +82,28 @@
     text-align: center;
     transition: box-shadow 0.5s ease-out;
     z-index: -1;
-  }
-  
-  .logoutBtn:hover {
-    color: #fff;
-    border: 1px solid rgb(255,0,0);
-  }
-  
-  .logoutBtn:hover::before {
-    box-shadow: inset 0 0 0 10em rgb(255, 0, 0);
-  }
-
-@media only screen and (width<1361px) {
-    .TopSection{
-        width: 77%;
-    }
 }
 
-@media only screen and (width<915px) {
-    .TopSection{
-        width: 74%;
+.logoutBtn:hover {
+    color: #fff;
+    border: 1px solid rgb(255, 0, 0);
+}
+
+.logoutBtn:hover::before {
+    box-shadow: inset 0 0 0 10em rgb(255, 0, 0);
+}
+
+@media (max-width: 600px) {
+    .TopSection {
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+
+    .leftSection {
+        width: 100%;
+    }
+
+    .rightSectionClose {
+        display: none;
     }
 }

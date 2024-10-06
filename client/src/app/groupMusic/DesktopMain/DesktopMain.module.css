@@ -11,32 +11,7 @@
     background-color: #1a1c22;
 }
 
-.leftMenuPlate {
-    position: fixed;
-    height: 100%;
-    width: 16%;
-}
-
 .mainSection {
-    width: 84%;
+    width: 100%;
     position: absolute;
-    right: 0;
-}
-
-@media only screen and (width<1361px) {
-    .leftMenuPlate{
-        width: 23%;
-    }
-    .mainSection{
-        width: 77%;
-    }
-}
-
-@media only screen and (width<915px) {
-    .leftMenuPlate{
-        width: 26%;
-    }
-    .mainSection{
-        width: 74%;
-    }
 }

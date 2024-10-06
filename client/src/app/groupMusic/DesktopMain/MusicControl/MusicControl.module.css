@@ -1,6 +1,6 @@
-.RightMusicControl{
+.MusicControl{
     height: 70px;
-    width: 84%;
+    width: 100%;
     position: fixed;
     bottom: 0;
     color: white;
@@ -8,6 +8,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 4%;
 }
 
@@ -30,17 +31,26 @@
 
 .songImage {
     min-width: 250px;
-    display: flex;
-    justify-content: flex-start;
 }
-.songImage img{
+
+.imageContainer {
+    position: relative;
+}
+.imageContainer > img:first-child{
     height: 45px;
     width: 40px;
     border-radius: 5px;
+    filter: brightness(30%);
+}
+.musicBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .songDetail > div:first-child {
-    max-width: 180px;
+    max-width: 500px;
     overflow-x: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;
@@ -48,10 +58,11 @@
 }
 
 .songDetail > div:nth-child(2) {
-    max-width: 180px;
+    max-width: 500px;
     overflow-x: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;
+    display: block; 
     color: #5d5e62;
     font-size: 12px;
 }
@@ -66,23 +77,21 @@
 }
 
 .musicProgress {
-    width: 45%;
-}
-
-@media only screen and (width<1361px) {
-    .RightMusicControl{
-        width: 77%;
-    }
-}
-
-@media only screen and (width<915px) {
-    .RightMusicControl{
-        width: 74%;
-    }
+    width: 100%;
+    padding: 0 8px;
 }
 
 @media (height<515px){
-    .RightMusicControl{
+    .MusicControl{
         height: 60px;
+    }
+}
+
+@media (width<550px) {
+    .songDetail > div:first-child {
+        max-width: 240px;
+    }
+    .songDetail > div:nth-child(2) {
+        max-width: 240px;
     }
 }

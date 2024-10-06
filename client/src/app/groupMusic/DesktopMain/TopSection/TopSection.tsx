@@ -11,9 +11,9 @@ import GroupChat from '../../GroupChat/GroupChat';
 import socket from '../../../../socket';
 import { Socket } from 'socket.io-client';
 import Cookies from 'js-cookie';
+import { decodeGroupId } from '@/app/utils';
 
 import styles from './TopSection.module.css';
-import { decodeGroupId } from '@/app/utils';
 
 interface ExtendedSocket extends Socket {
   hasEmittedNewUser?: boolean;
@@ -25,15 +25,16 @@ const TopSection = () => {
   const dispatch = useDispatch();
   const colorMode = useSelector((state: RootState) => state.applicationState.theme);
   const encodedGroupId = useSelector((state: RootState) => state.applicationState.encodedGroupId);
+  const searchOpenOnPhone = useSelector((state: RootState) => state.applicationState.searchOpenOnPhone);
   const decodedGroupId = decodeGroupId(encodedGroupId);
 
 
   const removeUserFromCurrentGroup = () => {
     extendedSocket.emit('removeUserFromCurrentGroup', {
-        groupId: decodedGroupId,
-        accessToken: Cookies.get('accessToken'),
+      groupId: decodedGroupId,
+      accessToken: Cookies.get('accessToken'),
     });
-}
+  }
 
   const leaveGroup = () => {
     removeUserFromCurrentGroup();
@@ -43,17 +44,21 @@ const TopSection = () => {
 
   return (
     <div className={`${styles.TopSection} ${colorMode === 1 ? styles.TopSectionLight : styles.TopSectionDark}`}>
-      <SearchSection />
-      <GroupChat />
-      <button onClick={() => dispatch(toggleMode())} className={`${colorMode === 1 ? styles.toggleModeLight : styles.toggleModeDark}`}>
-        <Image src={colorMode === 1 ? ToDark : ToLight} alt='toggle mode' />
-      </button>
+      <div className={styles.leftSection}>
+        <SearchSection />
+      </div>
+      <div className={`${styles.rightSection} ${searchOpenOnPhone && styles.rightSectionClose}`}>
+        <GroupChat />
+        <button onClick={() => dispatch(toggleMode())} className={`${colorMode === 1 ? styles.toggleModeLight : styles.toggleModeDark}`}>
+          <Image src={colorMode === 1 ? ToDark : ToLight} alt='toggle mode' />
+        </button>
 
-      <button className={styles.logoutBtn} onClick={leaveGroup}>
-        <span>Leave</span>
-      </button>
+        <button className={styles.logoutBtn} onClick={leaveGroup}>
+          <span>Leave</span>
+        </button>
+      </div>
     </div>
   )
 }
 
-export default TopSection
+export default TopSection;

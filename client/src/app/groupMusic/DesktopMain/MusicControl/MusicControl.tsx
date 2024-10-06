@@ -13,11 +13,11 @@ import getToken from '../../apiCalls/getToken';
 import getAuthHeader from '../../apiCalls/getAuthHeader';
 import getSingleTrack from '../../apiCalls/getSingleTrack';
 import { MusicProgressBar } from './MusicProgressBar';
-
-import styles from './RightMusicControl.module.css';
 import { LeftMusicControl } from '../LeftMusicControl/LeftMusicControl';
 
-export const RightMusicControl = () => {
+import styles from './MusicControl.module.css';
+
+export const MusicControl = () => {
   const [songDetails, setSongDetails] = useState({
     songImage: SongImage,
     songName: '---',
@@ -119,9 +119,12 @@ export const RightMusicControl = () => {
   }, [currentTrackId]);
 
   return (
-    <div className={`${styles.RightMusicControl} ${colorMode ? styles.lightModeMain : styles.darkModeMain}`}>
+    <div className={`${styles.MusicControl} ${colorMode ? styles.lightModeMain : styles.darkModeMain}`}>
       <div className={styles.songImage}>
-        <Image src={songDetails.songImage} alt='Song Image' width={40} height={45} />
+        <div className={styles.imageContainer}>
+          <Image src={songDetails.songImage} alt='Song Image' width={40} height={45} />
+          <div className={styles.musicBtn}><LeftMusicControl /></div>
+        </div>
         <div className={`${styles.songDetail} ${colorMode === 1 ? styles.songDetailLight : styles.songDetailDark}`}>
           <div>{songDetails.songName}</div>
           <div>
@@ -134,6 +137,7 @@ export const RightMusicControl = () => {
           </div>
         </div>
       </div>
+
       
       <div className={styles.musicProgress}>
         <MusicProgressBar audio={songDetails.audio} />

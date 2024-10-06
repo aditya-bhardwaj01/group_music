@@ -64,7 +64,6 @@ const OwnerGroup = () => {
 
   const searchGroup = (event: ChangeEvent<HTMLInputElement>) => {
     const currText = event.target.value.trim();
-    console.log(currText)
     setGroups(originalGroupData.filter(item => item.groupName.includes(currText)));
   }
 
