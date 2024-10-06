@@ -32,8 +32,10 @@ const MainGroupMusic: React.FC<MainGroupMusicProps> = ({ clientId, clientSecret 
   
   return (
     <div className={styles.MainGroupMusic}>
-      {isDesktopMode && <DesktopMain />}
-      {!isDesktopMode && <NonDesktopMain />}
+      {/* {isDesktopMode && <DesktopMain />}
+      {!isDesktopMode && <NonDesktopMain />} */}
+
+      <DesktopMain />
     </div>
   )
 }

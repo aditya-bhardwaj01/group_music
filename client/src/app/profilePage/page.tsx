@@ -13,7 +13,7 @@ import MenuItem from './MenuItem/MenuItem';
 import ProfileHome from './Home/ProfileHome';
 import OwnerGroup from './OwnerGroup/OwnerGroup';
 import MemberGroup from './MemberGroup/MemberGroup';
-import { setPlayMusic, setTrackId, setArtistId } from '@/store/slices/applicationState';
+import { setTrackId, setArtistId, setSearchOpenOnPhone } from '@/store/slices/applicationState';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -31,6 +31,7 @@ const ProfilePage = () => {
 
     dispatch(setTrackId(''));
     dispatch(setArtistId(''));
+    dispatch(setSearchOpenOnPhone(false));
 
   }, []);
 

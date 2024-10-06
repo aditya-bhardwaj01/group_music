@@ -4,7 +4,6 @@ import { createSlice, current } from "@reduxjs/toolkit";
 const initialState = {
   theme: 0,
   profilePageActive: 0,
-  musicPageActive: 'explore',
   openSearchResult: false,
   searchType: 'track',
   groupName: '',
@@ -14,6 +13,7 @@ const initialState = {
   currentArtistId: '',
   playMusic: false,
   musicDisabled: false,
+  searchOpenOnPhone: false,
 };
 
 export const applicationState = createSlice({
@@ -26,10 +26,6 @@ export const applicationState = createSlice({
 
     setProfilePageActive: (state, action) => {
       state.profilePageActive = action.payload
-    },
-
-    setMusicPageActive: (state, action) => {
-      state.musicPageActive = action.payload;
     },
 
     setOpenSearchResult: (state, action) => {
@@ -67,13 +63,19 @@ export const applicationState = createSlice({
     setMusicDisabled: (state, action) => {
       state.musicDisabled = action.payload;
     },
+
+    setSearchOpenOnPhone: (state, action) => {
+      if(!action.payload) {
+        state.openSearchResult = false;
+      }
+      state.searchOpenOnPhone = action.payload;
+    }
   },
 });
 
 export const { 
               toggleMode, 
               setProfilePageActive, 
-              setMusicPageActive, 
               setOpenSearchResult, 
               setSearchType,
               setGroupName,
@@ -83,6 +85,7 @@ export const {
               setArtistId,
               setPlayMusic,
               setMusicDisabled,
+              setSearchOpenOnPhone,
              } = applicationState.actions
 
 export default applicationState.reducer;

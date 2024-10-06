@@ -5,19 +5,14 @@ import { setPlayMusic } from '@/store/slices/applicationState';
 import Image from 'next/image';
 import socket from '@/socket';
 import { decodeGroupId } from '@/app/utils';
-import prevDisabled from '../../../../assets/musicPage/bottomMusicControl/prevDisabled.png';
 import playDark from '../../../../assets/musicPage/bottomMusicControl/playDark.png';
-import playLight from '../../../../assets/musicPage/bottomMusicControl/playLight.png';
 import playMusicDisabled from '../../../../assets/musicPage/bottomMusicControl/playDisabled.png';
 import pauseDark from '../../../../assets/musicPage/bottomMusicControl/pauseDark.png';
-import pauseLight from '../../../../assets/musicPage/bottomMusicControl/pauseLight.png';
-import nextDisabled from '../../../../assets/musicPage/bottomMusicControl/nextDisabled.png';
 
 import styles from './LeftMusicControl.module.css'
 
 export const LeftMusicControl = () => {
   const dispatch = useDispatch();
-  const colorMode = useSelector((state: RootState) => state.applicationState.theme);
   const musicPlayStatus = useSelector((state: RootState) => state.applicationState.playMusic);
   const isMusicDisabled = useSelector((state: RootState) => state.applicationState.musicDisabled);
   const encodedGroupId = useSelector((state: RootState) => state.applicationState.encodedGroupId);
@@ -45,20 +40,12 @@ export const LeftMusicControl = () => {
   }, [])
 
   return (
-    <div className={`${styles.LeftMusicControl} ${colorMode ? styles.lightModeMain : styles.darkModeMain}`}>
-      <div className={styles.previousSong}>
-        <Image src={prevDisabled} alt='previous song' />
-      </div>
-
-      <div className={styles.playPause} onClick={setMusicPlayStatus}>
+    <div className={styles.LeftMusicControl}>
+      <div className={`${styles.playPause} ${isMusicDisabled && styles.playDisabled}`} onClick={setMusicPlayStatus}>
         {isMusicDisabled ? <Image src={playMusicDisabled} alt='play song' /> : null}
         {musicPlayStatus ?
-          (!isMusicDisabled && <Image src={colorMode === 1 ? pauseLight : pauseDark} alt='pause song' />) :
-          (!isMusicDisabled && <Image src={colorMode === 1 ? playLight : playDark} alt='play song' />)}
-      </div>
-
-      <div className={styles.nextSong}>
-        <Image src={nextDisabled} alt='next song' />
+          (!isMusicDisabled && <Image src={pauseDark} alt='pause song' />) :
+          (!isMusicDisabled && <Image src={playDark} alt='play song' />)}
       </div>
     </div>
   )
