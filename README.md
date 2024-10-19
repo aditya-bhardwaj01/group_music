@@ -27,8 +27,11 @@
 #### Before any of the steps you need to place a .env file in the server folder and provide the email by which you want to enable sending of OTP and a password.
 #### Below are the details you need to put in .env file
 EMAIL: xyz@gmail.com
+
 PASSWORD: your_app_password
+
 ACCESSTOKEN: authentication_success_succ
+
 Here is the step by by step guide how you can get you APP PASSWORD https://medium.com/@dhananjay_71533/send-mail-using-nodemailer-in-node-js-3183366b1b1c
 
 ### Using docker
