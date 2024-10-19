@@ -1,5 +1,14 @@
 # Melody Mingle
-This is an application where users can easily create account, make different groups with family/friends with different name in each group and vibe on same song at a time, along with chatting with others.
+1. Synchronized Music Experience: Melody Mingle lets users create groups and vibe together in real-time by playing the same song across all devices, ensuring a shared musical experience.
+2. Integrated Chat: Users can chat with group members while listening to music, with real-time updates on who is online or offline—perfect for staying connected with friends and family.
+3.  Easy Group Creation & Join: Effortlessly create a group and share a unique code to invite others, or join existing groups using a code, ensuring flexibility and customization for each user.
+4. Built for Scalability: The app is containerized with Docker, allowing users to easily spin up the project on any system, making deployment seamless and scalable.
+5. Music Synchronization Using WebSockets: Thanks to WebSocket technology, all group members can enjoy synchronized music playback—if one user pauses, it pauses for everyone, ensuring a unified experience.
+6. Powered by Spotify API: Users can search for and play songs, albums, and playlists directly from Spotify, along with the ability to view artist details and explore top songs by genre.
+7. Advanced Search & Recommendations: Melody Mingle offers tailored song recommendations, allows users to search by artist, album, or playlist, and displays similar tracks, ensuring personalized music discovery.
+8.  Dynamic User Profiles: Each user can create a unique profile with separate display names for different groups, providing a personalized touch and easy navigation between different communities.
+9. Secure Account Management: Features like email OTP verification for sign-up and password reset options ensure users’ accounts are secure and easily recoverable.
+10. Robust Database Design: The app uses a well-structured MySQL database to handle users, groups, chat messages, and music data efficiently, ensuring smooth performance and data integrity.
 
 # Contents
 - Steps to run on your local machine
