@@ -13,8 +13,8 @@ const DesktopMain = () => {
   return (
     <div className={`${styles.DesktopMain} ${colorMode === 1 ? styles.DesktopMainLight : styles.DesktopMainDark}`}>
       <div className={styles.mainSection}>
-        <TopSection />
         <ContentMain />
+        <TopSection />
         <MusicControl />
       </div>
     </div>

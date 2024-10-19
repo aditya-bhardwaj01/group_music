@@ -2,6 +2,7 @@ import Image from 'next/image';
 import playMusic from '../../../../assets/playMusicBack.png';
 import { RootState } from '@/store/store';
 import { useSelector } from 'react-redux';
+import ViewMore from './ViewMore';
 
 import styles from './SingleExploreData.module.css';
 
@@ -10,9 +11,11 @@ interface SectionDataProps {
     imageUrl: string;
     primaryName: string;
     secondaryData: string[];
+    spotifyUrl: string;
+    viewMoreData?: any;
 }
 
-const SingleExploreData: React.FC<SectionDataProps> = ({ type, imageUrl, primaryName, secondaryData }) => {
+const SingleExploreData: React.FC<SectionDataProps> = ({ type, imageUrl, primaryName, secondaryData, spotifyUrl, viewMoreData }) => {
     const colorMode = useSelector((state: RootState) => state.applicationState.theme);
     const capitalizeWords = (sentence: string): string => {
         return sentence
@@ -45,8 +48,14 @@ const SingleExploreData: React.FC<SectionDataProps> = ({ type, imageUrl, primary
                 }
             </div>
         </div>
-        <div className={styles.viewMore}>
-            View More
+        <div className={styles.buttons}>
+            <button className={styles.goToSpotify} onClick={(e) => {
+                window.open(spotifyUrl, '_blank');
+                e.stopPropagation();
+            }}>
+                View on Spotify
+            </button>
+            <ViewMore type={type} viewMoreData={viewMoreData}  />
         </div>
     </div>
 }

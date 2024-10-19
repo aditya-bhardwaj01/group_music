@@ -45,7 +45,8 @@ const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
         setSearchResults(results);
     }
 
-    const callPlayMusic = (trackId: string, artistId: string) => {
+    const callPlayMusic = (event: React.MouseEvent, trackId: string, artistId: string) => {
+        event.stopPropagation();
         playMusicEmitter(trackId, artistId, decodedGroupId);
         dispatch(setTrackId(trackId));
         dispatch(setPlayMusic(true));
@@ -54,7 +55,7 @@ const SearchTrack: React.FC<SearchTrackProps> = ({ searchedText }) => {
     return (
         <div className={`${styles.SearchTrack} ${colorMode === 1 ? styles.SearchTrackLight : styles.SearchTrackDark}`}>
             {searchResults && searchResults.map((item: any, index: number) => (
-                <div className={styles.trackSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)} onClick={() => callPlayMusic(item.id, item.artists[0].id)}>
+                <div className={styles.trackSingle} key={item.id} onMouseEnter={() => setShowPlayBtn(index)} onMouseLeave={() => setShowPlayBtn(-1)} onClick={(event) => callPlayMusic(event, item.id, item.artists[0].id)}>
                     <div className={styles.leftSection}>
                         <div className={styles.imageContainer}>
                             <Image className={`${showPlayBtn === index && styles.blurImg}`} src={item.album.images.length === 0 ? defaultImg : item.album.images[0].url} width={40} height={40} alt="Song Image" />

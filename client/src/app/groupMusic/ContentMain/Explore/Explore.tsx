@@ -1,5 +1,5 @@
 import { RootState } from '@/store/store';
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import getToken from '../../apiCalls/getToken';
 import getAuthHeader from '../../apiCalls/getAuthHeader';
@@ -25,6 +25,8 @@ interface SectionDataProps {
     displayTitle?: string;
     onclick?: (artistId: string, artistName: string) => void;
 }
+
+const sections = [0, 1, 2, 3];
 
 const Explore = () => {
     const trackId = useSelector((state: RootState) => state.applicationState.currentTrackId);
@@ -61,7 +63,7 @@ const Explore = () => {
     }
 
     const getArtistsSongs = async (artistId: string, artistName: string) => {
-        if(artistId === '' || !artistId) return;
+        if (artistId === '' || !artistId) return;
         setLoadingArtistTrack(true);
         const accessToken = await getToken();
         const authHeader = getAuthHeader(accessToken);
@@ -72,16 +74,16 @@ const Explore = () => {
     }
 
     const getNoDataDisplay = (isLoading: boolean, type: number): ReactNode => {
-        if(isLoading) return;
-        if(type === 0) {
-            if(!artistId || artistId === '') return <div>Play you first song to get artists suggestion</div>;
-            if(!artists || artists.length === 0) return <div>Can't find similar artists</div>
-        } else if(type === 1) {
-            if(artistName === '' || !artistName) return <div>Choose an artist to get his top tracks</div>
-            if(!artistSongs || artistSongs.length === 0) return <div>Sorry can't find top tracks of {artistName}</div>
+        if (isLoading) return;
+        if (type === 0) {
+            if (!artistId || artistId === '') return <div>Play you first song to get artists suggestion</div>;
+            if (!artists || artists.length === 0) return <div>Can't find similar artists</div>
+        } else if (type === 1) {
+            if (artistName === '' || !artistName) return <div>Choose an artist to get his top tracks</div>
+            if (!artistSongs || artistSongs.length === 0) return <div>Sorry can't find top tracks of {artistName}</div>
         } else {
-            if(!trackId || trackId === '') return <div>Play you fist song to get similar songs</div>
-            if(!tracks || tracks.length === 0) return <div>Can't find similar songs</div>
+            if (!trackId || trackId === '') return <div>Play you fist song to get similar songs</div>
+            if (!tracks || tracks.length === 0) return <div>Can't find similar songs</div>
         }
     }
 
@@ -91,8 +93,8 @@ const Explore = () => {
 
     return (
         <div className={styles.Explore}>
-            <div className={styles.exploreSection}>
-                <div className={styles.sectionLeft}>
+            <div className={`${styles.exploreSection} ${styles.exploreSectionTop}`}>
+            <div className={styles.sectionLeft}>
                     {getNoDataDisplay(loadingArtist, 0)}
                     {loadingArtist ? <Loading height={20} width={20} /> : <SectionData title='Artists' data={artists} onclick={getArtistsSongs} />}
                 </div>
@@ -101,8 +103,8 @@ const Explore = () => {
                     {loadingArtistTrack ? <Loading height={20} width={20} /> : <SectionData title='Tracks' data={artistSongs} displayTitle={`Enjoy top songs by ${artistName}`} />}
                 </div>
             </div>
-            <div className={styles.exploreSection}>
-                <div className={styles.sectionLeft}>
+            <div className={`${styles.exploreSection} ${styles.exploreSectionBottom}`}>
+            <div className={styles.sectionLeft}>
                     {getNoDataDisplay(loadingTrack, 2)}
                     {loadingTrack ? <Loading height={20} width={20} /> : <SectionData title='Tracks' data={tracks} />}
                 </div>
@@ -117,30 +119,30 @@ const Explore = () => {
 export default Explore;
 
 export const SectionData: React.FC<SectionDataProps> = ({ title, data, displayTitle, onclick }) => {
-    if(data.length === 0) return;
+    if (data.length === 0) return;
     const dispatch = useDispatch();
     const encodedGroupId = useSelector((state: RootState) => state.applicationState.encodedGroupId);
     const decodedGroupId = decodeGroupId(encodedGroupId);
     const getImageUrl = (title: string, data: any) => {
-        if(title === 'Artists') {
-            if(data.images[0]?.url) return data.images[0].url;
+        if (title === 'Artists') {
+            if (data?.images[0]?.url) return data.images[0].url;
             return DefaultImage;
         }
-        if(data.album.images[0].url) return data.album.images[0].url;
+        if (data?.album?.images[0]?.url) return data.album.images[0].url;
         return DefaultImage;
     }
     const getPrimaryName = (data: any) => {
         return data.name;
     }
     const getSecondaryData = (title: string, data: any) => {
-        if(title === 'Artists') {
+        if (title === 'Artists') {
             return data.genres;
         }
         const namesArray = data.album.artists.map(item => item.name);
         return namesArray;
     }
     const handleClick = (data: any) => {
-        if(title === 'Artists') {
+        if (title === 'Artists') {
             onclick?.(data.id, data.name);
             return;
         }
@@ -151,6 +153,29 @@ export const SectionData: React.FC<SectionDataProps> = ({ title, data, displayTi
         dispatch(setPlayMusic(true));
     }
 
+    const getViewMoreData = (data: any) => {
+        if (title === 'Artists') {
+            const moreData = {
+                image: data?.images[0]?.url ?? DefaultImage,
+                name: data.name,
+                type: data.type,
+                genres: data.genres,
+                followers: data.followers.total,
+                popularity: data.popularity,
+            }
+            return moreData;
+        }
+        const moreData = {
+            image: data?.album?.images[0]?.url ?? DefaultImage,
+            name: data.album.name,
+            type: data.type,
+            artists: data.artists.map(item => item.name),
+            albumName: data.album.name,
+            popularity: data.popularity,
+        }
+        return moreData;
+    }
+
     return (
         <>
             <div className={styles.sectionName}>{displayTitle ?? title}</div>
@@ -158,9 +183,11 @@ export const SectionData: React.FC<SectionDataProps> = ({ title, data, displayTi
                 {data.map((data, index) => <span key={index + 'track'} onClick={() => handleClick(data)}>
                     <SingleExploreData
                         type={title.toLowerCase()}
-                        imageUrl={getImageUrl(title, data)} 
-                        primaryName={getPrimaryName(data)} 
+                        imageUrl={getImageUrl(title, data)}
+                        primaryName={getPrimaryName(data)}
                         secondaryData={getSecondaryData(title, data)}
+                        spotifyUrl={data.external_urls.spotify}
+                        viewMoreData={getViewMoreData(data)}
                     />
                 </span>)}
             </div>
