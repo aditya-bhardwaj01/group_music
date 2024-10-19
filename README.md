@@ -1,4 +1,4 @@
-# Melody Minge
+# Melody Mingle
 This is an application where users can easily create account, make different groups with family/friends with different name in each group and vibe on same song at a time, along with chatting with others.
 
 # Contents
