@@ -38,7 +38,7 @@ This is an application where users can easily create account, make different gro
 - Spotify's API for getting the song and all it's details
 
 ## Database design
-- Users table containing the user data
+- Users table for storing the user data
   ![image](https://github.com/user-attachments/assets/3d6a6901-5900-4805-b631-52a78b272247)
 - Groupsdata table for storing the details of each group
   ![image](https://github.com/user-attachments/assets/d6801af2-b34b-4389-b524-e71cea699219)
